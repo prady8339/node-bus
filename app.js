@@ -25,7 +25,7 @@ const Post = mongoose.model("Post", postSchema);
 
 app.get("/", (req, res) => {
     Post.find({}, function(err, posts){
-    res.render('home.ejs', {
+    res.render('browse.ejs', {
         posts: posts
     });
 })
@@ -67,11 +67,11 @@ app.get('/posts/:userId', function (req, res) {
 });
 });
 
-app.get("/about", (req, res) => {
-    res.render('about.ejs');
+app.get("/chat", (req, res) => {
+    res.render('chat.ejs');
 })
-app.get("/contact", (req, res) => {
-    res.render('contact.ejs');
+app.get("/profile", (req, res) => {
+    res.render('profile.ejs');
 })
 
 app.listen(process.env.PORT || port,()=>{
