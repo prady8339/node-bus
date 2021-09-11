@@ -1,0 +1,21 @@
+{
+  "name": "ejs-challenge",
+  "version": "1.0.0",
+  "description": "<h3> Upcomming Upgrade plans </h3>  1. This project needs upgradation and connection to database. <br> 2. further it needs to be intergrated with a todolist project. <br> 3. introduction of authentication. <br> 4. introduction to chatbox. <br> 5. introduction to public declaration and user browsing. <br>",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {}
+}
