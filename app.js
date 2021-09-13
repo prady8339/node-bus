@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 // mongoose.connect("mongodb://localhost:27017/blogDBpost", {useNewUrlParser: true});
-mongoose.connect("mongodb+srv://wwb_bc:www.wwb3.0@cluster0.q2hi3.mongodb.net/WWBlog?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const postSchema = {
   title: String,
