@@ -1,4 +1,6 @@
-require('dotenv').config();
+
+require('dotenv').config()
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -25,6 +27,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false
   }));
+
+// mongoose.connect("mongodb://localhost:27017/blogDBpost", {useNewUrlParser: true});
+mongoose.connect(process.env.CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 app.use(passport.initialize());
 app.use(passport.session());
