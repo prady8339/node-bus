@@ -1,7 +1,7 @@
 {
   "name": "ejs-challenge",
   "version": "1.0.0",
-  "description": "<h3> Upcomming Upgrade plans </h3>  1. This project needs upgradation and connection to database. <br> 2. further it needs to be intergrated with a todolist project. <br> 3. introduction of authentication. <br> 4. introduction to chatbox. <br> 5. introduction to public declaration and user browsing. <br>",
+  "description": "krenge jaldi kuch",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,14 +9,31 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
+
     "dotenv": "^10.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-session": "^1.17.2",
+    "firebase": "^9.0.2",
     "loadash": "^1.0.0",
     "lodash": "^4.17.21",
-    "mongoose": "^6.0.5",
-    "nodemon": "^2.0.12"
+    "mongoose": "^6.0.6",
+    "mongoose-encryption": "^2.1.1",
+    "mongoose-findorcreate": "^3.0.0",
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1"
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ar7aditya/WWB3.00.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ar7aditya/WWB3.00/issues"
+  },
+  "homepage": "https://github.com/ar7aditya/WWB3.00#readme"
 }
