@@ -1,3 +1,8 @@
+/* header---------------------------------------------------------------------------------------------------- */
+.profile_pic{
+  height: 40px;
+  margin-top: 5px;
+}
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -34,7 +39,7 @@
   color: #fff;
 }
 
-
+/* transfered from SECRETS ------------------------------------------------------------------------------------ */
 .centered {
     padding-top: 200px;
     text-align: center;
