@@ -1,6 +1,4 @@
-
-require('dotenv').config()
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -28,10 +26,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-
-// mongoose.connect("mongodb://localhost:27017/blogDBpost", {useNewUrlParser: true});
-mongoose.connect(process.env.CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -195,27 +189,27 @@ const postSchema = {
 };
 const Post = mongoose.model("Post", postSchema);
 
-app.get("/", (req, res) => {
-  Post.find({}, function (err, posts) {
-    res.render('browse.ejs', {
-      posts: posts
-    });
+// app.get("/", (req, res) => {
+//   Post.find({}, function (err, posts) {
+//     res.render('browse.ejs', {
+//       posts: posts,
+//       userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c" 
+//     });
+//   })
+// });
+
+
+app.get("/", (req, res)=> {
+  User.find({}, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("browse.ejs",{
+        userDP: user.photo
+      });
+    }
   })
 });
-
-// app.get("/", function (req, res) {
-//   // if (req.isAuthenticated()){
-//   User.find({}, function (err, User) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.render({
-//         profileDp: User.photo
-//       });
-//     }
-//   })
-//   // }
-// });
 
 app.get("/compose", (req, res) => {
   res.render('compose.ejs');
@@ -265,4 +259,3 @@ app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://localhost:${port}`);
 });
 
-//check commit
