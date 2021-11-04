@@ -189,27 +189,30 @@ const postSchema = {
 };
 const Post = mongoose.model("Post", postSchema);
 
-// app.get("/", (req, res) => {
-//   Post.find({}, function (err, posts) {
-//     res.render('browse.ejs', {
-//       posts: posts,
-//       userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c" 
-//     });
+app.get("/", (req, res) => {
+  
+    Post.find({}, function (err, posts) {
+      if(err){console.log(err);}else{
+      res.render('home.ejs', {
+        posts: posts,
+        userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c" 
+      }); }
+    })
+  
+});
+
+
+// app.get("/", (req, res)=> {
+//   User.find({}, function (err, user) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render("home.ejs",{
+//         posts:user
+//       });
+//     }
 //   })
 // });
-
-
-app.get("/", (req, res)=> {
-  User.find({}, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("home.ejs",{
-        posts: user
-      });
-    }
-  })
-});
 
 app.get("/compose", (req, res) => {
   res.render('compose.ejs');
