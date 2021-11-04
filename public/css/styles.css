@@ -54,15 +54,15 @@
 #search-user{
   
   text-align: left;
-  font-size: 11px;
   padding: 3px;
   position: absolute;
   top: 27px;
   left: 591px;
   height: 28px;
   width: 229px;
- 
-
+  font-family: FontAwesome;  
+  font-size:20px;
+  border-radius: 5px;
 }
 .search-div{
   align-items: center;
@@ -74,7 +74,8 @@
       padding: 16 px;
       border-block: inherit;
       border: none;
-      
+      height: 45px;
+      width: 45px;
       border-radius: 50%;
       
 
@@ -85,6 +86,7 @@
   display: inline-block;
   padding-top:13px;
   left:250px;
+  top:-9px;
 }
 
 .dropdown-content {
@@ -101,7 +103,7 @@
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-  
+
 }
 .dropdown-content a:hover {background-color: #ddd;}
 
