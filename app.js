@@ -30,9 +30,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/blogDBpost", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost:27017/blogDBpost", { useNewUrlParser: true });
 // mongoose.set("useCreateIndex", true);
-// mongoose.connect(process.env.MONGOOSE_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGOOSE_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // sign in schema ---------------------------------------------------------------------------------
 
@@ -204,8 +204,8 @@ app.get("/", (req, res)=> {
     if (err) {
       console.log(err);
     } else {
-      res.render("browse.ejs",{
-        userDP: user.photo
+      res.render("home.ejs",{
+        posts: user
       });
     }
   })

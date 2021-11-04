@@ -8,21 +8,39 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/bootstrap-social.css">
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+ <script src="https://kit.fontawesome.com/ae641f6c5e.js" crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="/css/styles.css">
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <p class="navbar-brand">WWB3.0</p>
+      <p class="navbar-brand">WWB3.0</p>
+      </div>
+      <div class="search-div nav navbar-nav navbar-center">
+        <div class="dropdown nav navbar-nav navbar-default">
+          <button class="dropbtn"><i class="fas fa-user-secret fa-2x"></i></button>
+          <div class="dropdown-content">
+            <a href="/profile"><i class="fas fa-house-user"></i>-Profile</a>
+            <a href="/"><i class="fas fa-cog"></i>-Settings</a>
+            <a href="/" class=logout>Log out</a>
+          </div>
+        </div>
+        <input type="search" name="serch-user" id="search-user" placeholder="&#xF002; Search" style="font-family: FontAwesome;">
+        
+        
       </div>
         <ul class="nav navbar-nav navbar-right">
           <!-- 6 -->
-          <li id="home"><a href="/">BROWSE</a></li>
-          <li id="about"><a href="/chat">CHAT</a></li>
-          <li id="contact"><a href="/profile">PROFILE</a></li>
-          <li id="contact"><a href="/auth/google">SIGN UP</a></li>  
-               
+          
+          <li id="home"><a href="/"><i class="fab fa-safari fa-2x"></i></a></li>
+          <li id="about"><a href="/chat"><i class="fas fa-comments fa-2x"></i></a></li>
+          <li id="compose"><a href="/compose"><i class="far fa-plus-square fa-2x"></i></a></li>
+
         </ul>
     </div>
+   
   </nav>
 
   <body>
