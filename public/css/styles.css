@@ -115,3 +115,6 @@
   border-top:black;
   border-style: double none none none;
 }
+.node-bus{
+  color:black;
+}
