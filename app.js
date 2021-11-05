@@ -185,18 +185,30 @@ app.post("/login", function (req, res) {
 //---------------------------------------------------------------------------------------------------------
 const postSchema = {
   title: String,
-  content: String
+  content: String,
+  seen:String
 };
+const trendSchema = {
+  title: String,
+  content: String,
+  seen:String
+}
 const Post = mongoose.model("Post", postSchema);
-
+const Trend = mongoose.model("Trend",trendSchema);
 app.get("/", (req, res) => {
   
     Post.find({}, function (err, posts) {
       if(err){console.log(err);}else{
-      res.render('home.ejs', {
-        posts: posts,
-        userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c" 
-      }); }
+        Trend.find({},function(err,trends){
+          if(err){console.log(err);}else{
+            res.render('home.ejs', {
+              posts: posts,
+              userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
+              trends:trends
+            });
+          }
+        })
+       }
     })
   
 });
