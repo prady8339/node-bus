@@ -1,6 +1,6 @@
 <%- include partials/header -%>
 
-   <div class="row">
+   <div class="row home-wrap">
       <div class="col-sm-8 left-post">
          <% posts.forEach(function(post) { %>
             <div  class="post">
@@ -14,8 +14,8 @@
             <% }) %> 
       </div>
       <div class="col-sm-4 right-trend">
-         <h2>trending...</h2>
-         <% trends.forEach(function(trends) { %>
+         <h2 style="color:black;">trending...</h2>
+         <!-- <% trends.forEach(function(trends) { %>
             <div  class="post">
                <h2 style="color: black;"> <%= trends.title %></h2> 
             
@@ -24,9 +24,18 @@
                </p> 
             </div>
           <br>
-            <% }) %> 
-
-
+            <% }) %>  -->
+            
+            <% posts.forEach(function(post) { %>
+               <div  class="post ">
+                  <h2 style="color: black;"> <%= post.title %></h2> 
+               
+                  <p><%= post.content.substring(0,100)+"..."%>  
+                  <a href="/posts/<%=post.title%>" + post.title> Read more</a> 
+                  </p> 
+               </div>
+             <br>
+               <% }) %> 
       </div>
     </div>
     <%- include partials/footer -%>

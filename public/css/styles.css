@@ -134,10 +134,29 @@
 }
 .left-post{
   border-right:2px solid grey;
-  
+  float: left;
+  max-width: 65%;
+  width: 65%;
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    background: #EFF0F1;
+    overflow: scroll;
     height: 100vh;
 }
-
+.right-trend{
+  border-right:2px solid grey;
+  float: left;
+  max-width: 35%;
+  width: 35%;
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    background: #EFF0F1;
+    overflow: scroll;
+    height: 100vh;
+}
+.home-wrap{
+  display:flex;
+}
 .navbar-brand span{
   position: absolute;
   padding:10px;
@@ -166,3 +185,4 @@
   border-right:2px solid grey;
   height: 100vh;
 }
+
