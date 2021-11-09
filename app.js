@@ -69,9 +69,18 @@ passport.use(new GoogleStrategy({
   userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
   function (accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+    // const guser = new User({
+    //   googleId:profile.id,
+    //   username: profile.name.givenName,
+    //   photo: profile.photos.value,
+     
+    // });
+  
+    // guser.save();
+    // console.log(profile);
 
-    User.findOrCreate({ googleId: profile.id, name: profile.displayName, photo: profile._json.picture }, function (err, user) {
+console.log( Number(profile.id));
+    User.findOrCreate({  googleId: profile.id, name: profile.displayName,username:profile.displayName, photo: profile._json.picture }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -264,8 +273,20 @@ app.get('/posts/:userId', function (req, res) {
 });
 
 app.get("/chat", (req, res) => {
-  res.render('chat.ejs');
-})
+
+  User.find({}, function (err, users) {
+    if(err){console.log(err);}else{
+      
+      res.render('chat.ejs', {
+            users: users,
+            userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
+            
+          });
+        }
+      })
+     })
+
+
 app.get("/profile", (req, res) => {
   res.render('profile.ejs');
 })

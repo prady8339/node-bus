@@ -6,6 +6,12 @@
     <div class="col-sm-4 left-chat">
       
         <h2>friends...</h2>
+        <% users.forEach(function(user) { %>
+            <div  class="post ">
+               <h2 style="color: black;"> <%= user.username%></h2> 
+            </div>
+          <br>
+            <% }) %> 
         </div>
     <div class="col-sm-8 right-chat">
         <h1>Chat</h1>
