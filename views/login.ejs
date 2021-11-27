@@ -1,15 +1,12 @@
-<%- include('partials/header') %>
-
-<div class="container mt-5">
-  <h1>Login</h1>
+<!-- 
 
   <div class="row">
     <div class="col-sm-8">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body"> -->
 
-          <!-- Makes POST request to /login route -->
-          <form action="/login" method="POST">
+          <!-- Makes POST request to /login route
+    <form action="/login" method="POST">
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" name="username">
@@ -19,25 +16,60 @@
               <input type="password" class="form-control" name="password">
             </div>
             <button type="submit" class="btn btn-dark">Login</button>
-            <button type="menu"  href="/register">register</button>
-          </form>
-          
+        
+          </form> 
+         
         </div>
       </div>
-    </div>
+    </div>  --> 
 
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign In with Google
-          </a>
-        </div>
-      </div>
-    </div>
 
+
+<!-- to be made -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="box" id="heading">
+        <h1>
+            Project Manager
+        </h1>
+    </div>
+<form action="/login" method="POST"> 
+    <div class="box">
+            <div class="item">
+                <input type="text" placeholder="Enter your Mail" name="username">
+            </div>
+            <div class="item">
+                <input type="text" placeholder="Enter Password" name="password">
+            </div>
+                <button id="loginButton" type="submit" class="btn btn-dark" > Log In</button>
+    </div>
+</form>
+<!-- google login -->
+<div class="col-sm-4">
+  <div class="card">
+    <div class="card-body">
+      <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+        <i class="fab fa-google"></i>
+        Sign In with Google
+      </a>
+    </div>
   </div>
 </div>
 
-<%- include('partials/footer') %>
+</div>
+</div>
+    <script type="module" src="/firebase.js"></script>
+        
+    
+</body>
+</html>
