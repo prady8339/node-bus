@@ -1,0 +1,246 @@
+/* header---------------------------------------------------------------------------------------------------- */
+.profile_pic{
+  height: 40px;
+  margin-top: 5px;
+}
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    border-bottom: 1px solid black;
+}
+.navbar-nav  li a:hover {
+    color: #1abc9c !important;
+}
+
+.footer-padding {
+	padding-bottom: 60px;
+}
+
+.footer {
+	position: static;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #355e5e;
+}
+
+.footer p {
+	margin-top: 25px;
+	font-size: 12px;
+  color: #fff;
+}
+
+/* transfered from SECRETS ------------------------------------------------------------------------------------ */
+.centered {
+    padding-top: 200px;
+    text-align: center;
+}
+
+.secret-text {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  background-color: #000;
+}
+#search-user{
+  
+  text-align: left;
+  padding: 3px;
+  position: absolute;
+  top: 27px;
+  left: 591px;
+  height: 28px;
+  width: 229px;
+  font-family: FontAwesome;  
+  font-size:20px;
+  border-radius: 5px;
+}
+.search-div{
+  align-items: center;
+}
+.dropbtn {
+      
+      background-color: #949494;
+      color: white;
+      padding: 16 px;
+      border-block: inherit;
+      border: none;
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+      
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding-top:13px;
+  left:360px;
+  top:-9px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+}
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #020202;}
+
+.logout{
+  border-top:black;
+  border-style: double none none none;
+}
+.node-bus{
+  color:black;
+}
+.post , .post-page{
+  background-color:#ebf9f6;
+  border-left: 5px solid #c781f3;
+ border-radius:10px;
+}
+.post p,h2{
+  color:rgb(100, 100, 100);
+  padding-left: 10px;
+}
+.post-page p,h1{
+  color:black;
+  padding-left: 20px;
+}
+.left-post{
+  border-right:2px solid grey;
+  float: left;
+  max-width: 65%;
+  width: 65%;
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    background: #EFF0F1;
+    overflow: scroll;
+    height: 100vh;
+}
+.right-trend{
+  border-right:2px solid grey;
+  float: left;
+  max-width: 35%;
+  width: 35%;
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    background: #EFF0F1;
+    overflow: scroll;
+    height: 100vh;
+}
+.home-wrap{
+  display:flex;
+}
+.navbar-brand span{
+  position: absolute;
+  padding:10px;
+  
+}
+.like-bar{
+  padding-bottom: 10px;
+}
+.like-bar span{
+  padding:5px;
+}
+.comment-bar{
+  border-bottom: 6px solid red;
+  background-color: lightgrey;
+}
+.left-chat{
+  border-right:2px solid grey;
+  border-left:2px solid grey;
+  height: 100vh;
+}
+.center-chat{
+  border-right:2px solid grey;
+  height: 100vh;
+}
+.right-chat{
+  border-right:2px solid grey;
+  height: 100vh;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #020202;}
+
+.logout{
+  border-top:black;
+  border-style: double none none none;
+}
+.node-bus{
+  color:black;
+}
+.post , .post-page{
+  background-color:#ebf9f6;
+  border-left: 5px solid #c781f3;
+ border-radius:10px;
+}
+.post p,h2{
+  color:rgb(100, 100, 100);
+  padding-left: 10px;
+}
+.post-page p,h1{
+  color:black;
+  padding-left: 20px;
+}
+.left-post{
+  border-right:2px solid grey;
+  
+    height: 100vh;
+}
+
+.navbar-brand span{
+  position: absolute;
+  padding:10px;
+  
+}
+.like-bar{
+  padding-bottom: 10px;
+}
+.like-bar span{
+  padding:5px;
+}
+.comment-bar{
+  border-bottom: 6px solid red;
+  background-color: lightgrey;
+}
+.left-chat{
+  border-right:2px solid grey;
+  border-left:2px solid grey;
+  height: 100vh;
+}
+.center-chat{
+  border-right:2px solid grey;
+  height: 100vh;
+}
+.right-chat{
+  border-right:2px solid grey;
+  height: 100vh;
+}

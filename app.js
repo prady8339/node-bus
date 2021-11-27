@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const metaphone = require('metaphone');
 const path = require("path");
 const ejs = require("ejs");
 const _ = require('lodash');
@@ -12,20 +11,12 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const { stringify } = require('querystring');
-const exphbs = require('express-handlebars');
-const nodemailer = require('nodemailer');
 const port = 3000;
-
+let posts = [];
+let myArray = Object.values(posts);
 
 const app = express();
-app.engine('handlebars', exphbs(
-  {
-    extname: "handlebars",
-    //defaultLayout: "main-layout",
-    layoutsDir: "views/"
-  }
-));
-app.set('view engine', 'handlebars');
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
@@ -120,9 +111,8 @@ app.get("/secrets", function (req, res) {
         console.log(err);
       } else {
         if (foundUsers) {
-          res.render("main.handlebars", {
-            usersWithSecrets: foundUsers,
-            layout: false 
+          res.render("secrets", {
+            usersWithSecrets: foundUsers
           });
         }
       }
@@ -133,6 +123,13 @@ app.get("/secrets", function (req, res) {
   }
 });
 
+app.get("/submit", function (req, res) {
+  if (req.isAuthenticated()) {
+    res.render("submit");
+  } else {
+    res.redirect("/login");
+  }
+});
 
 app.post("/submit", function (req, res) {
   const submittedSecret = req.body.secret;
@@ -209,69 +206,91 @@ const Post = mongoose.model("Post", postSchema);
 const Trend = mongoose.model("Trend",trendSchema);
 app.get("/", (req, res) => {
   
-  res.redirect("/login");
- 
+    Post.find({}, function (err, posts) {
+      if(err){console.log(err);}else{
+        Trend.find({},function(err,trends){
+          if(err){console.log(err);}else{
+            res.render('home.ejs', {
+              posts: posts,
+              userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
+              trends:trends
+            });
+          }
+        })
+       }
+    })
   
 });
 
 
+// app.get("/", (req, res)=> {
+//   User.find({}, function (err, user) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render("home.ejs",{
+//         posts:user
+//       });
+//     }
+//   })
+// });
 
+app.get("/compose", (req, res) => {
+  res.render('compose.ejs');
+})
 
-// project manager integration-->
-
-app.get('/response', (req, res) => {
-  res.render('response.handlebars', { layout: false });
-});
-
-app.post('/send', (req, res) => {
-  const output = `
-                  <p>You have a new contact request</p>
-                  <h3>Contact Details</h3>
-                  <ul>  
-                    <li>Name: ${req.body.name}</li>
-                    <li>Email: ${req.body.email}</li>
-                    <li>Project: ${req.body.project}</li>
-                    <li>Coordinator: ${req.body.coordinator}</li>
-                  </ul>
-                  <h3>Message</h3>
-                  <p>${req.body.message}</p>
-                `;
-
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.USER_ID,
-      pass: process.env.USER_PASSWORD
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
+app.post('/compose', (req, res) => {
+  const post = new Post({
+    title: req.body.postTitle,
+    content: req.body.postBody
   });
 
-  // setup email data with unicode symbols
-  let mailOptions = {
-    from: '<martinarawal@gmail.com>', // sender address
-    to: 'adityarana95488459@gmail.com',// list of receivers
-    subject: 'New Project Request', // Subject line
-    text: 'Hello world?', // plain text body
-    html: output // html body
-  };
+  post.save();
+  res.redirect("/");
 
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.log(error);
+});
+
+app.get('/posts/:userId', function (req, res) {
+  let requestedTitle = _.lowerCase(req.params.userId);
+
+  Post.find((err, posts) => {
+    if (err) {
+      console.log(err);
+    } else {
+      posts.forEach((i) => {
+        const storedTitle = _.lowerCase(i.title);
+
+        if (storedTitle === requestedTitle) {
+          res.render('post.ejs', {
+            title: i.title,
+            content: i.content
+
+          });
+        }
+      });
     }
-    console.log('Message sent: %s', info.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-    res.redirect('/response');
   });
 });
-// ----- end;
+
+app.get("/chat", (req, res) => {
+
+  User.find({}, function (err, users) {
+    if(err){console.log(err);}else{
+      
+      res.render('chat.ejs', {
+            users: users,
+            userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
+            
+          });
+        }
+      })
+     })
+
+
+app.get("/profile", (req, res) => {
+  res.render('profile.ejs');
+})
+
 app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://localhost:${port}`);
 });
