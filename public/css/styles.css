@@ -7,6 +7,9 @@
     padding-top: 70px;
     padding-bottom: 70px;
 }
+body{
+  background-image:url(../resources/iwall.jpeg);
+}
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -16,6 +19,7 @@
     font-size: 12px;
     letter-spacing: 5px;
     border-bottom: 1px solid black;
+    background-color:#ccced1;
 }
 .navbar-nav  li a:hover {
     color: #1abc9c !important;
@@ -23,6 +27,9 @@
 
 .footer-padding {
 	padding-bottom: 60px;
+}
+.navbar-default .navbar-nav li a {
+color:#ff4f4f;
 }
 
 .footer {
@@ -88,6 +95,7 @@
   padding-top:13px;
   left:360px;
   top:-9px;
+  background-color: #ccced1;
 }
 
 .dropdown-content {
@@ -142,6 +150,18 @@
     background: #EFF0F1;
     overflow: scroll;
     height: 100vh;
+} 
+.compose-style{
+  
+  border-right:2px solid grey;
+  float: left;
+  max-width: 100%;
+  width: 100%;
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    background: #EFF0F1;
+    overflow: scroll;
+    height: 75vh;
 }
 .right-trend{
   border-right:2px solid grey;

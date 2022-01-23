@@ -1,11 +1,16 @@
  <%- include partials/header.ejs %>
 
 
+ <body>
+    <!-- <div class="container">
+      
 <div class="row">
     
     <div class="col-sm-4 left-chat">
-      
-        <h2>friends...</h2>
+        <div class="post">
+            <h2 style="color:rgb(69, 151, 223)">friends...</h2>
+
+        </div>
         <% users.forEach(function(user) { %>
             <div  class="post ">
                <h2 style="color: black;"> <%= user.username%></h2> 
@@ -14,10 +19,43 @@
             <% }) %> 
         </div>
     <div class="col-sm-8 right-chat">
-        <h1>Chat</h1>
+        <div class="post">
+            <h1 style="color:rgb(69, 151, 223)">Chat</h1>
+
+        </div>
     </div>
     
 </div>
+ -->
 
 
+
+
+    <div class="container">
+      
+    <div class="row home-wrap">
+        <div class="col-sm-4 right-trend">
+ 
+          
+
+        <% users.forEach(function(user) { %>
+            <div  class="post ">
+               <h2 style="color: black;"> <%= user.username%></h2> 
+            </div>
+          <br>
+            <% }) %> 
+         
+            
+                  
+   
+         </div>
+       <div class="col-sm-8 left-post">
+
+ 
+        <h1 style="color:rgb(69, 151, 223)">Chat</h1>
+
+       </div>
+      
+     </div>
+</div>
 <%- include partials/footer.ejs %>
