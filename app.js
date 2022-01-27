@@ -30,6 +30,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.use(function(req,res,next){
+//   res.locals.currentUser = req.user;
+//   console.log(req);
+//   next(); 
+// })
 // mongoose.connect("mongodb://localhost:27017/blogDBpost", { useNewUrlParser: true });
 // mongoose.set("useCreateIndex", true);
 mongoose.connect(process.env.MONGOOSE_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -69,17 +74,6 @@ passport.use(new GoogleStrategy({
   userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
   function (accessToken, refreshToken, profile, cb) {
-    // const guser = new User({
-    //   googleId:profile.id,
-    //   username: profile.name.givenName,
-    //   photo: profile.photos.value,
-     
-    // });
-  
-    // guser.save();
-    // console.log(profile);
-
-console.log( Number(profile.id));
     User.findOrCreate({  googleId: profile.id, name: profile.displayName,username:profile.displayName, photo: profile._json.picture }, function (err, user) {
       return cb(err, user);
     });
@@ -106,7 +100,7 @@ app.get("/register", function (req, res) {
 
 app.get("/secrets", function (req, res) {
   if (req.isAuthenticated()) {
-    User.find({ "secret": { $ne: null } }, function (err, foundUsers) {
+    Post.find({ "UserId": { $eq: req.user.id } }, function (err, foundUsers) {
       if (err) {
         console.log(err);
       } else {
@@ -195,7 +189,8 @@ app.post("/login", function (req, res) {
 const postSchema = {
   title: String,
   content: String,
-  seen:String
+  seen:String,
+  UserId:String
 };
 const trendSchema = {
   title: String,
@@ -211,6 +206,7 @@ app.get("/", (req, res) => {
         Trend.find({},function(err,trends){
           if(err){console.log(err);}else{
             res.render('home.ejs', {
+              username: req.user.username ,
               posts: posts,
               userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
               trends:trends
@@ -222,19 +218,6 @@ app.get("/", (req, res) => {
   
 });
 
-
-// app.get("/", (req, res)=> {
-//   User.find({}, function (err, user) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.render("home.ejs",{
-//         posts:user
-//       });
-//     }
-//   })
-// });
-
 app.get("/compose", (req, res) => {
   res.render('compose.ejs');
 })
@@ -242,7 +225,8 @@ app.get("/compose", (req, res) => {
 app.post('/compose', (req, res) => {
   const post = new Post({
     title: req.body.postTitle,
-    content: req.body.postBody
+    content: req.body.postBody,
+    UserId:req.user.id
   });
 
   post.save();
@@ -288,7 +272,9 @@ app.get("/chat", (req, res) => {
 
 
 app.get("/profile", (req, res) => {
-  res.render('profile.ejs');
+  res.render('profile.ejs',{
+    username: req.user.id
+  });
 })
 
 app.listen(process.env.PORT || port, () => {
