@@ -21,7 +21,7 @@
     "mongoose": "^6.0.6",
     "mongoose-encryption": "^2.1.1",
     "mongoose-findorcreate": "^3.0.0",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.15",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
