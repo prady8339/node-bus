@@ -1,23 +1,74 @@
-<%- include partials/header.ejs %>
-      <body>
-        <div class="container">  
-<h1>Profile</h1>
-<div>
-    <table>
-        <tr>
-            <th>User Id</th>
-            
-          </tr>
-          <tr>
-            <td class="secret-text"><%=username%></td>
-          
-          </tr>
-    </table>
-</div>
+<%- include('partials/header') %>
+<link rel="stylesheet" href="css/settings.css">  
+   
+   
 
+</head>
+
+<body>
+  <div class="container">
+
+
+	<h1 class="header">To Upload Image on mongoDB</h1>
+	<hr>
+	<div class="card"> 
+		<form action="/settings" method="POST" enctype="multipart/form-data">
+			<div>
+			
+			
+			</div>
+			
+			<div>
+			
+				<input type="file" id="image"
+					name="image" value="" required>
+			</div>
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
 	</div>
+
+	<hr>
+
+	<h1>my profile</h1>
+	<div>
+		
+		<div class="card">
+			<div class="top">
+                <p class="heading"><%= username %></p>
+			 <img src="data:image/png;base64,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"
+        class="circle-img">
+				<div class="bottom">
+                    <div>
+                        <p class="info">hello</p>
+                    </div>
+					
+                    </div>
+			 </div>
+		</div>
+
+    <div>
+      <% item.forEach(function(image) { %>
+      <div class="card">
+        <div class="top">
+                  <p class="heading"><%= image.name %></p>
+         <img src="data:image/<%=image.img.contentType%>;base64,
+            <%=image.img.data.toString('base64')%>" class="circle-img" style="width: 120px;">
+          <div class="bottom">
+                      <div class="note">
+                          <p class="info"><%= image.desc %></p>
+                      </div>
+            
+                      </div>
+         </div>
+      </div>
+  
+      <% }) %>
+    </div>
+	
+	</div>
+</div>
 </body>
 
-
-
-<%- include partials/footer.ejs %>
+</html>

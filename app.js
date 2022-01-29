@@ -266,18 +266,6 @@ app.get('/posts/:userId', function (req, res) {
   });
 });
 
-app.get("/profile", (req, res) => {
-if (req.isAuthenticated()) {
-  res.render("profile", {
-            username: req.user.id
-          });
-        }
-      else {
-    res.redirect("/login")
-  }
-})
-
-
 const multer = require('multer');
   
 const storage = multer.diskStorage({
@@ -294,6 +282,26 @@ const upload = multer({ storage: storage });
 const imgModel = require('./model');
 
 
+app.get("/profile", (req, res) => {
+  if (req.isAuthenticated()) {
+  imgModel.find({ "UserId": { $eq: req.user.id } }, function (err, userImg) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (userImg) {
+          res.render("profile", {
+            items: userImg,
+            username:req.user.username
+          });
+        }
+      }
+    });
+  }  else {
+      res.redirect("/login")
+    }
+  })
+  
+  
   
 app.get('/settings', (req, res) => {
     imgModel.find({}, (err, items) => {
@@ -316,7 +324,8 @@ app.post('/settings', upload.single('image'), (req, res, next) => {
         img: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
-        }
+        },
+        UserId:req.user.id
     }
     imgModel.create(obj, (err, item) => {
         if (err) {
