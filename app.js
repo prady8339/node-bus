@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+const fs = require('fs');
 const ejs = require("ejs");
 const _ = require('lodash');
 const session = require('express-session');
@@ -11,6 +12,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const { stringify } = require('querystring');
+
+
 const port = 3000;
 let posts = [];
 let myArray = Object.values(posts);
@@ -30,11 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function(req,res,next){
-//   res.locals.currentUser = req.user;
-//   console.log(req);
-//   next(); 
-// })
+
 // mongoose.connect("mongodb://localhost:27017/blogDBpost", { useNewUrlParser: true });
 // mongoose.set("useCreateIndex", true);
 mongoose.connect(process.env.MONGOOSE_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -47,13 +46,22 @@ const userSchema = new mongoose.Schema({
   googleId: String,
   name: String,
   photo: String,
-  secret: String
+  secret: String,
+  img:
+    {
+        data: Buffer,
+        contentType: String
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-const User = new mongoose.model("User", userSchema);
+ const User = new mongoose.model("User", userSchema);
+
+//chat get route
+
+ const chat = require('./chat')(app,User);
 
 passport.use(User.createStrategy());
 
@@ -106,7 +114,8 @@ app.get("/secrets", function (req, res) {
       } else {
         if (foundUsers) {
           res.render("secrets", {
-            usersWithSecrets: foundUsers
+            usersWithSecrets: foundUsers,
+            username:req.user.username
           });
         }
       }
@@ -144,6 +153,7 @@ app.post("/submit", function (req, res) {
     }
   });
 });
+
 
 app.get("/logout", function (req, res) {
   req.logout();
@@ -206,8 +216,7 @@ app.get("/", (req, res) => {
         Trend.find({},function(err,trends){
           if(err){console.log(err);}else{
             res.render('home.ejs', {
-              username: req.user.username ,
-              posts: posts,
+             posts: posts,
               userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
               trends:trends
             });
@@ -234,6 +243,7 @@ app.post('/compose', (req, res) => {
 
 });
 
+
 app.get('/posts/:userId', function (req, res) {
   let requestedTitle = _.lowerCase(req.params.userId);
 
@@ -256,26 +266,68 @@ app.get('/posts/:userId', function (req, res) {
   });
 });
 
-app.get("/chat", (req, res) => {
-
-  User.find({}, function (err, users) {
-    if(err){console.log(err);}else{
-      
-      res.render('chat.ejs', {
-            users: users,
-            userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
-            
+app.get("/profile", (req, res) => {
+if (req.isAuthenticated()) {
+  res.render("profile", {
+            username: req.user.id
           });
         }
-      })
-     })
-
-
-app.get("/profile", (req, res) => {
-  res.render('profile.ejs',{
-    username: req.user.id
-  });
+      else {
+    res.redirect("/login")
+  }
 })
+
+
+const multer = require('multer');
+  
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+const upload = multer({ storage: storage });
+
+const imgModel = require('./model');
+
+
+  
+app.get('/settings', (req, res) => {
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('settings', { items: items });
+        }
+    });
+});
+
+  
+app.post('/settings', upload.single('image'), (req, res, next) => {
+  
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/settings');
+        }
+    });
+});
 
 app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://localhost:${port}`);

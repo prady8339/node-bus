@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image Uploading</title>
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+
+<body>
+	<h1 class="header">To Upload Image on mongoDB</h1>
+	<hr>
+	<div class="card"> 
+		<form action="/settings" method="POST" enctype="multipart/form-data">
+			<div>
+				<label for="name">Image Title</label>
+				<input type="text" id="name" placeholder="Name"
+					value="" name="name" required>
+			</div>
+			<div>
+				<label for="desc">Image Description</label>
+				<textarea id="desc" name="desc" value="" rows="2"
+						placeholder="Description" required>
+				</textarea>
+			</div>
+			<div>
+				<label for="image">Upload Image</label>
+				<input type="file" id="image"
+					name="image" value="" required>
+			</div>
+			<div>
+				<button type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
+
+	<hr>
+
+	<h1>Uploaded Images</h1>
+	<div>
+		<% items.forEach(function(image) { %>
+		<div class="card">
+			<div class="top">
+                <p class="heading"><%= image.name %></p>
+			 <img src="data:image/<%=image.img.contentType%>;base64,
+					<%=image.img.data.toString('base64')%>" class="circle-img" style="width: 120px;">
+				<div class="bottom">
+                    <div class="note">
+                        <p class="info"><%= image.desc %></p>
+                    </div>
+					
+                    </div>
+			 </div>
+		</div>
+
+		<% }) %>
+	</div>
+</body>
+
+</html>
