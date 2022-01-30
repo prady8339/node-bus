@@ -4,14 +4,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const fs = require('fs');
-const ejs = require("ejs");
-const _ = require('lodash');
-const session = require('express-session');
+const connection = require('./db');
+// const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
-const { stringify } = require('querystring');
+// const passportLocalMongoose = require("passport-local-mongoose");
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const findOrCreate = require('mongoose-findorcreate');
+// const { stringify } = require('querystring');
 
 
 const port = 3000;
@@ -21,72 +20,25 @@ let myArray = Object.values(posts);
 const app = express();
 
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'))
 
-app.use(session({
-  secret: "Our little secret.",
-  resave: false,
-  saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(express.static('public'));
 
 
-// mongoose.connect("mongodb://localhost:27017/blogDBpost", { useNewUrlParser: true });
-// mongoose.set("useCreateIndex", true);
-mongoose.connect(process.env.MONGOOSE_CLUSTER, { useNewUrlParser: true, useUnifiedTopology: true });
-
+connection();
 // sign in schema ---------------------------------------------------------------------------------
 
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  googleId: String,
-  name: String,
-  photo: String,
-  secret: String,
-  img:
-    {
-        data: Buffer,
-        contentType: String
-    }
-});
+const User = require('./schema/userSchema');
+const passportme = require('./schema/passport');
 
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
-
- const User = new mongoose.model("User", userSchema);
+passportme(app,User,passport);
 
 //chat get route
 
- const chat = require('./chat')(app,User);
+ const chat = require('./getroutes/chat')(app,User);
 
-passport.use(User.createStrategy());
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
-
-passport.use(new GoogleStrategy({
-  clientID: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/secrets",
-  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-},
-  function (accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({  googleId: profile.id, name: profile.displayName,username:profile.displayName, photo: profile._json.picture }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
 app.get("/auth/google",
   passport.authenticate('google', { scope: ["profile"] })
 );
@@ -175,40 +127,12 @@ app.post("/register", function (req, res) {
 
 });
 
-app.post("/login", function (req, res) {
-
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  req.login(user, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      passport.authenticate("local")(req, res, function () {
-        res.redirect("/secrets");
-      });
-    }
-  });
-
-});
-
 
 //---------------------------------------------------------------------------------------------------------
-const postSchema = {
-  title: String,
-  content: String,
-  seen:String,
-  UserId:String
-};
-const trendSchema = {
-  title: String,
-  content: String,
-  seen:String
-}
-const Post = mongoose.model("Post", postSchema);
-const Trend = mongoose.model("Trend",trendSchema);
+
+const Post = require('./schema/post');
+const Trend = require('./schema/trend');
+
 app.get("/", (req, res) => {
   
     Post.find({}, function (err, posts) {
@@ -244,27 +168,7 @@ app.post('/compose', (req, res) => {
 });
 
 
-app.get('/posts/:userId', function (req, res) {
-  let requestedTitle = _.lowerCase(req.params.userId);
-
-  Post.find((err, posts) => {
-    if (err) {
-      console.log(err);
-    } else {
-      posts.forEach((i) => {
-        const storedTitle = _.lowerCase(i.title);
-
-        if (storedTitle === requestedTitle) {
-          res.render('post.ejs', {
-            title: i.title,
-            content: i.content
-
-          });
-        }
-      });
-    }
-  });
-});
+const postPage = require('./getroutes/postPage')(app);
 
 const multer = require('multer');
   
@@ -279,7 +183,7 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage });
 
-const imgModel = require('./model');
+const imgModel = require('./schema/model');
 
 
 app.get("/profile", (req, res) => {
@@ -303,17 +207,7 @@ app.get("/profile", (req, res) => {
   
   
   
-app.get('/settings', (req, res) => {
-    imgModel.find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('settings', { items: items });
-        }
-    });
-});
+const settings = require('./getroutes/settings')(app,imgModel);
 
   
 app.post('/settings', upload.single('image'), (req, res, next) => {
