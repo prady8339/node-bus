@@ -22,8 +22,9 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage }); 
   
   
-  
+ 
     app.get('/settings', (req, res) => {
+        if(req.isAuthenticated()) {
         imgModel.find({}, (err, items) => {
             if (err) {
                 console.log(err);
@@ -33,7 +34,11 @@ const storage = multer.diskStorage({
                 res.render('settings', { items: items });
             }
         });
+    }else{
+        res.redirect("/login")
+    }
     });
+
 
 
     app.post('/settings', upload.single('image'), (req, res, next) => {
@@ -42,7 +47,7 @@ const storage = multer.diskStorage({
             name: req.body.name,
             desc: req.body.desc,
             img: {
-                data: fs.readFileSync(path.join(where + '/uploads/'+ req.file.filename)),
+                data: fs.readFileSync(path.join(loc+'/'+ req.file.filename)),
                 contentType: 'image/png'
             },
             UserId:req.user.id
