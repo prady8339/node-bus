@@ -124,7 +124,7 @@ const imgModel = require('./schema/image');
 const profile = require('./routes/profile')(app,imgModel);
     
   
-const settings = require('./routes/settings')(app,imgModel);
+const settings = require('./routes/settings')(app,imgModel,__dirname);
 
   
 

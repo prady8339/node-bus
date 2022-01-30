@@ -3,35 +3,37 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 
+
+  
+
+module.exports = function(app,imgModel,where){
+
+const loc = where+"/uploads";
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-     
-      cb(null,'/routes/uploads')
-  },
-  filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now())
-  }
-});
-
-const upload = multer({ storage: storage }); 
-
-
-
-  app.get('/settings', (req, res) => {
-      imgModel.find({}, (err, items) => {
-          if (err) {
-              console.log(err);
-              res.status(500).send('An error occurred', err);
-          }
-          else {
-              res.render('settings', { items: items });
-          }
-      });
+    destination: (req, file, cb) => {
+      cb(null,loc)
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
   });
   
-
-module.exports = function(app,imgModel){
+  const upload = multer({ storage: storage }); 
   
+  
+  
+    app.get('/settings', (req, res) => {
+        imgModel.find({}, (err, items) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('An error occurred', err);
+            }
+            else {
+                res.render('settings', { items: items });
+            }
+        });
+    });
 
 
     app.post('/settings', upload.single('image'), (req, res, next) => {
@@ -40,7 +42,7 @@ module.exports = function(app,imgModel){
             name: req.body.name,
             desc: req.body.desc,
             img: {
-                data: fs.readFileSync(path.join('/uploads' + req.file.filename)),
+                data: fs.readFileSync(path.join(where + '/uploads/'+ req.file.filename)),
                 contentType: 'image/png'
             },
             UserId:req.user.id
