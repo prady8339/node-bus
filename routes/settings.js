@@ -17,22 +17,22 @@ const upload = multer({ storage: storage });
 
 
 
-  app.get('/settings', (req, res) => {
-      imgModel.find({}, (err, items) => {
-          if (err) {
-              console.log(err);
-              res.status(500).send('An error occurred', err);
-          }
-          else {
-              res.render('settings', { items: items });
-          }
-      });
-  });
+ 
   
 
 module.exports = function(app,imgModel){
   
-
+    app.get('/settings', (req, res) => {
+        imgModel.find({}, (err, items) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('An error occurred', err);
+            }
+            else {
+                res.render('settings', { items: items });
+            }
+        });
+    });
 
     app.post('/settings', upload.single('image'), (req, res, next) => {
   
