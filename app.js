@@ -5,12 +5,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const fs = require('fs');
 const connection = require('./db');
-// const session = require('express-session');
 const passport = require("passport");
-// const passportLocalMongoose = require("passport-local-mongoose");
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const findOrCreate = require('mongoose-findorcreate');
-// const { stringify } = require('querystring');
+ 
 const port = 3000;
 let posts = [];
 let myArray = Object.values(posts);
@@ -114,7 +110,7 @@ app.post("/register", function (req, res) {
 
 const home = require('./routes/home')(app,Post,Trend);
 
-const compose = require('./routes/compose')(app,Post)
+const compose = require('./routes/compose')(app,Post);
 
 const postPage = require('./routes/postPage')(app);
 
@@ -124,7 +120,7 @@ const imgModel = require('./schema/image');
 const profile = require('./routes/profile')(app,imgModel);
     
   
-const settings = require('./routes/settings')(app,imgModel);
+const settings = require('./routes/settings')(app,imgModel,__dirname);
 
   
 
