@@ -2,23 +2,32 @@
 
 
 <body>
+
+  
+
    <div class="container">
-     
+ 
    <div class="row home-wrap">
 
       <div class="col-sm-8 left-post">
+
+         <div class="div-abt">
+            <p style="color:white;">
+              About ( 35,50,00,000 ) posts on [ nodebus ].
+            </p>  
+           </div>
          <% posts.forEach(function(post) { %>
             <div  class="post">
-               <h2 style="color: black;"> <%= post.title %></h2> 
+               <h2 class="title-link">  <a href="/posts/<%=post.title%>" + post.title >  <%= post.title %></a> </h2> 
             
                <p><%= post.content.substring(0,100)+"..."%>  
-               <a href="/posts/<%=post.title%>" + post.title> Read more</a> 
+             
                </p> 
             </div>
           <br>
             <% }) %> 
       </div>
-      <div class="col-sm-4 right-trend">
+      <!-- <div class="col-sm-4 right-trend">
          <h2 style="color:black;">trending...</h2>
          <!-- <% trends.forEach(function(trends) { %>
 
@@ -32,7 +41,7 @@
           <br>
 
             <% }) %>  -->
-            
+<!--             
             <% posts.forEach(function(post) { %>
                <div  class="post ">
                   <h2 style="color: black;"> <%= post.title %></h2> 
@@ -42,9 +51,9 @@
                   </p> 
                </div>
              <br>
-               <% }) %> 
+               <% }) %>  -->
 
-      </div>
+      </div> 
     </div>
    </div>
     <%- include partials/footer -%>
