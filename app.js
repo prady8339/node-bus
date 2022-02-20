@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
+
 const port = 3000;
 const app = express();
 
@@ -18,7 +19,6 @@ const passportme = require('./schema/passport');
 passportme(app,User,passport);
 
 const Post = require('./schema/post');
-const Trend = require('./schema/trend');
 const imgModel = require('./schema/image');
 
 require('./routes/chat')(app,User);
