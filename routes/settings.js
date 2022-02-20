@@ -5,25 +5,26 @@ const multer = require('multer');
 
 
 
-
-
+  
 module.exports = function(app,imgModel,where){
 
-    
-    const storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-           
-            cb(null,where+'/uploads')
-        },
-        filename: (req, file, cb) => {
-            cb(null, file.fieldname + '-' + Date.now())
-        }
-      });
+const loc = where+"/uploads";
 
-      const upload = multer({ storage: storage }); 
-
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null,loc)
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+  });
+  
+  const upload = multer({ storage: storage }); 
+  
+  
+ 
     app.get('/settings', (req, res) => {
-        if (req.isAuthenticated()){ 
+        if(req.isAuthenticated()) {
         imgModel.find({}, (err, items) => {
             if (err) {
                 console.log(err);
@@ -33,11 +34,12 @@ module.exports = function(app,imgModel,where){
                 res.render('settings', { items: items });
             }
         });
-    }
-    else{
-        res.redirect("/login");
+    }else{
+        res.redirect("/login")
     }
     });
+
+
 
     app.post('/settings', upload.single('image'), (req, res, next) => {
   
@@ -45,7 +47,9 @@ module.exports = function(app,imgModel,where){
             name: req.body.name,
             desc: req.body.desc,
             img: {
-                data: fs.readFileSync(path.join(where+'/uploads/' + req.file.filename)),
+
+                data: fs.readFileSync(path.join(loc+'/'+ req.file.filename)),
+
                 contentType: 'image/png'
             },
             UserId:req.user.id
