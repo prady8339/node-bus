@@ -4,8 +4,8 @@ const fs = require('fs');
 const multer = require('multer');
 
 
-  
 
+  
 module.exports = function(app,imgModel,where){
 
 const loc = where+"/uploads";
@@ -47,7 +47,9 @@ const storage = multer.diskStorage({
             name: req.body.name,
             desc: req.body.desc,
             img: {
+
                 data: fs.readFileSync(path.join(loc+'/'+ req.file.filename)),
+
                 contentType: 'image/png'
             },
             UserId:req.user.id

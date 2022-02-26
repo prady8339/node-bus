@@ -28,10 +28,10 @@ app.get("/", (req, res) => {
           })
           
         });
-  
     console.log(users);
         
    
+
             res.render('home.ejs', {
               posts: posts,
              users:users
