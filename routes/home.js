@@ -1,25 +1,49 @@
 
-module.exports = function(app,Post,Trend){
+module.exports = function(app,Post,User){
 
   
 
 app.get("/", (req, res) => {
+  const users = [];
+  Post.find({}, function (err, posts) {
+
+      if(err){console.log(err);}
+      else{
+        
+       
+        posts.forEach(function(post){
+          let i=0;
+         console.log(post.UserId);
+          User.find({ "_id": { $eq: post.UserId} }, function (err, foundUsers) {
+            if (err) {
+              console.log(err);
+            } else {
+           
+     
+           users.push(foundUsers[i].username);
+             console.log(foundUsers[i].username)
+            i++;
+            }
+            
+          })
+          
+        });
   
-    Post.find({}, function (err, posts) {
-      if(err){console.log(err);}else{
-        Trend.find({},function(err,trends){
-          if(err){console.log(err);}else{
+    console.log(users);
+        
+   
             res.render('home.ejs', {
-             posts: posts,
-              userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
-              trends:trends
+              posts: posts,
+             users:users
             });
-          }
-        })
-       }
+           
+          
+        
+      }
+
     })
   
 });
 
-         
+   
     }
