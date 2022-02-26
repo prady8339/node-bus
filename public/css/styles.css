@@ -41,7 +41,14 @@ a:hover{
 	padding-bottom: 60px;
 }
 .navbar-default .navbar-nav li a {
-color:#ff4f4f;
+color:skyblue;
+}
+.navbar-header{
+  position: absolute;
+  left:0;
+  width:90px;
+  top:0;
+
 }
 
 .footer {
@@ -58,6 +65,10 @@ color:#ff4f4f;
 	font-size: 12px;
   color: #fff;
 }
+a{
+ background-color:  #333333;
+}
+
 
 /* transfered from SECRETS ------------------------------------------------------------------------------------ */
 .centered {
@@ -72,18 +83,20 @@ color:#ff4f4f;
   background-color: #000;
 }
 #search-user{
-  
   text-align: left;
   padding: 3px;
   position: absolute;
   top: 27px;
-  left: 591px;
-  height: 28px;
-  width: 229px;
-  font-family: FontAwesome;  
-  font-size:20px;
-  border-radius: 5px;
+  left: 200px;
+  height: 37px;
+  width: 550px;
+  font-family: FontAwesome;
+  font-size: 19px;
+
+  background-color: #3333;
+  color: white;
 }
+
 .search-div{
   align-items: center;
 }
@@ -105,9 +118,10 @@ color:#ff4f4f;
   position: relative;
   display: inline-block;
   padding-top:13px;
-  left:360px;
+  left:38%;
   top:-9px;
   background-color: #333333;
+
 }
 
 .dropdown-content {
@@ -143,6 +157,7 @@ color:#ff4f4f;
 
   border: 1px solid #858585;
  border-radius:10px;
+
  
 }
 .post p,h2{
@@ -271,4 +286,51 @@ color:#ff4f4f;
 .right-chat{
   border-right:2px solid grey;
   height: 100vh;
+}
+.post-img {
+width:20%;
+}
+.post-img>img{
+
+  
+width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding:10px;
+
+
+}
+.post-content{
+  width:80%;
+}
+.flex{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.postowner{
+  margin: 10px;
+}
+.mybar:hover{
+background-color: black;
+border:#858585;
+
+}
+
+.mybar{
+  margin-left: 200px;
+}
+
+.brand-img{
+  z-index: 2;
+  position:absolute;
+}
+.nav1{
+  margin-bottom: 10px;
+  border:none;
+}
+.nav2{
+  margin-top:40px;
+}
+.search-logo{
+  color:green;
 }

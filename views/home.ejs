@@ -17,44 +17,38 @@
             </p>  
            </div>
          <% posts.forEach(function(post) { %>
-            <div  class="post">
+            <div class="post flex">
+            <div class="post-content">
+
+               <div class="flex postowner">
+                  <div>
+                     <img src="resources/favicon-32x32.png" alt="" srcset="">
+                  </div>
+                  <% users.forEach(function(user) { %>
+                  <p><%= user %></p>
+                  <% }) %> 
+               </div>
+             
+
                <h2 class="title-link">  <a href="/posts/<%=post.title%>" + post.title >  <%= post.title %></a> </h2> 
             
                <p><%= post.content.substring(0,100)+"..."%>  
              
                </p> 
+               
             </div>
+            
+        
+            <div class="post-img">
+                  <img src="resources/favicon-32x32.png" alt="" srcset="">
+               </div>
+
+            </div>
+
           <br>
             <% }) %> 
       </div>
-      <!-- <div class="col-sm-4 right-trend">
-         <h2 style="color:black;">trending...</h2>
-
-         <!-- <% trends.forEach(function(trends) { %>
-
-            <div  class="post">
-               <h2 style="color: black;"> <%= trends.title %></h2> 
-            
-               <p><%= trends.content.substring(0,100)+"..."%>  
-               <a href="/posts/<%=post.title%>" + post.title> Read more</a> 
-               </p> 
-            </div>
-          <br>
-
-            <% }) %>  -->
-<!--             
-
-
-            <% posts.forEach(function(post) { %>
-               <div  class="post ">
-                  <h2 style="color: black;"> <%= post.title %></h2> 
-               
-                  <p><%= post.content.substring(0,100)+"..."%>  
-                  <a href="/posts/<%=post.title%>" + post.title> Read more</a> 
-                  </p> 
-               </div>
-             <br>
-               <% }) %>  -->
+     
 
       </div> 
     </div>

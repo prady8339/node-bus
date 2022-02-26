@@ -26,7 +26,7 @@ require('./routes/login')(app,passport);
 require('./routes/secrets')(app,Post);
 require('./routes/submit')(app,User);
 require('./routes/register')(app,User,passport);
-require('./routes/home')(app,Post,Trend);
+require('./routes/home')(app,Post,User);
 require('./routes/compose')(app,Post)
 require('./routes/postPage')(app);
 require('./routes/profile')(app,imgModel);
