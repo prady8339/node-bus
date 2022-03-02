@@ -24,7 +24,6 @@ a:hover{
 }
 .navbar {
     padding-top: 15px;
-    padding-bottom: 15px;
     border: 0;
     border-radius: 0;
     margin-bottom: 0;
@@ -35,6 +34,8 @@ a:hover{
 }
 .navbar-nav  li a:hover {
     color: #1abc9c !important;
+    border-bottom:coral 2px solid;
+    
 }
 
 .footer-padding {
@@ -332,5 +333,25 @@ border:#858585;
   margin-top:40px;
 }
 .search-logo{
-  color:green;
+  color:skyblue;
+
+
+  position: absolute;
+  top: 27px;
+  left: 158px;
+  height: 37px;
+  width: 550px;
+  font-family: FontAwesome;
+
+  background-color: #3333;
+  color: white;
+
+
+}
+.search-logo>i{
+  border-left:#7c7c7c solid 3px;
+  border-top:#7c7c7c solid 3px;
+  border-bottom:#7c7c7c solid 3px;
+  border-radius:50%;
+padding:3px;
 }

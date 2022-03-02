@@ -6,7 +6,11 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     seen:String,
-    UserId:String
+    date:String,
+    time:String,
+    UserId:String,
+    username:String,
+    photo:String
   });
 
 

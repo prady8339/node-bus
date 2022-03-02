@@ -13,7 +13,8 @@
 
          <div class="div-abt">
             <p style="color:white;">
-              About ( 35,50,00,000 ) posts on [ nodebus ].
+             <span id="clock"></span>
+             
             </p>  
            </div>
          <% posts.forEach(function(post) { %>
@@ -24,17 +25,22 @@
                   <div>
                      <img src="resources/favicon-32x32.png" alt="" srcset="">
                   </div>
-                  <% users.forEach(function(user) { %>
-                  <p><%= user %></p>
-                  <% }) %> 
+                
+                  <p><a href="<%=post.username%>"><%= post.username %> </a></p>
+                
                </div>
              
+               <%let pt = ""; if(post.title.length>51)  pt = post.title.substring(0,52)+" ..." ;
+               else pt = post.title %> 
+               <%let pc = ""; if(post.content.length>103)  pc = post.content.substring(0,104)+" ..." ;
+               else pc = post.content %>
 
-               <h2 class="title-link">  <a href="/posts/<%=post.title%>" + post.title >  <%= post.title %></a> </h2> 
+               <h2 class="title-link">  <a href="/posts/<%=post.title%>" ><%=pt%></a> </h2> 
             
-               <p><%= post.content.substring(0,100)+"..."%>  
+               <p><%= pc %>  
              
                </p> 
+               <p><%= post.date %> <%= post.time %> </p>
                
             </div>
             
@@ -53,5 +59,25 @@
       </div> 
     </div>
    </div>
+
+
+   <script>
+
+
+
+(function () {
+
+var clockElement = document.getElementById( "clock" );
+
+function updateClock ( clock ) {
+  clock.innerHTML = new Date();
+}
+
+setInterval(function () {
+    updateClock( clockElement );
+}, 1000);
+
+}());
+   </script>
     <%- include partials/footer -%>
     
