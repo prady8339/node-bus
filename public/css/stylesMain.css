@@ -1,4 +1,4 @@
-/* header---------------------------------------------------------------------------------------------------- */
+/* header----------------------------------------------------------------------------------------------- */
 .profile_pic{
   height: 40px;
   margin-top: 5px;
@@ -9,11 +9,9 @@
 }
 body{
   background-color: #333333;
-
 }
 .div-abt {
   margin:15px;
-
 }
 
 a:visited {
@@ -88,13 +86,17 @@ a{
   position: absolute;
   top: 27px;
   left: 200px;
-  height: 37px;
-  width: 550px;
-  font-family: FontAwesome;
+  height: 40px;
+  width: 350px;
+  /* font-family: FontAwesome; */
   font-size: 19px;
-
-  background-color: #3333;
-  color: white;
+  background-color: rgb(255, 248, 248);
+  color: rgb(0, 0, 0);
+  border-radius: 15px;
+}
+#search-user:hover{
+  width: 500px;
+transition:linear 0.7s;
 }
 
 .search-div{

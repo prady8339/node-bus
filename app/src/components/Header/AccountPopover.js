@@ -56,7 +56,7 @@ export default function AccountPopover() {
                     }}
                 />
             ),
-            linkTo: '/settings'
+            linkTo: '/setting'
         }
     ];
 

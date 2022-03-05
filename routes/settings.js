@@ -2,24 +2,24 @@
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-
-
+const {storage} = require('../cloudinary/index');
+const upload = multer({storage});
 
   
 module.exports = function(app,imgModel,where){
 
 const loc = where+"/uploads";
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null,loc)
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-  });
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null,loc)
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+//   });
   
-  const upload = multer({ storage: storage }); 
+//   const upload = multer({ storage: storage }); 
   
   
  
@@ -42,27 +42,27 @@ const storage = multer.diskStorage({
 
 
     app.post('/settings', upload.single('image'), (req, res, next) => {
-  
-        var obj = {
-            name: req.body.name,
-            desc: req.body.desc,
-            img: {
+       console.log(req.file);
+        // var obj = {
+        //     name: req.body.name,
+        //     desc: req.body.desc,
+        //     img: {
 
-                data: fs.readFileSync(path.join(loc+'/'+ req.file.filename)),
+        //         data: fs.readFileSync(path.join(loc+'/'+ req.file.filename)),
 
-                contentType: 'image/png'
-            },
-            UserId:req.user.id
-        }
-        imgModel.create(obj, (err, item) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                // item.save();
-                res.redirect('/settings');
-            }
-        });
+        //         contentType: 'image/png'
+        //     },
+        //     UserId:req.user.id
+        // }
+        // imgModel.create(obj, (err, item) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
+        //         // item.save();
+        //         res.redirect('/settings');
+        //     }
+        // });
     });
     
     
