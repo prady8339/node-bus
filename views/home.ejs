@@ -29,11 +29,7 @@
                   <p><a href="<%=post.username%>"><%= post.username %> </a></p>
                 
                </div>
-             
-               <%let pt = ""; if(post.title.length>51)  pt = post.title.substring(0,52)+" ..." ;
-               else pt = post.title %> 
-               <%let pc = ""; if(post.content.length>103)  pc = post.content.substring(0,104)+" ..." ;
-               else pc = post.content %>
+               <h5><%= post.createat %></h5>
 
                <h2 class="title-link">  <a href="/posts/<%=post.title%>" ><%=pt%></a> </h2> 
             

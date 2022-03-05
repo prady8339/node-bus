@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {AppBar, Box, InputAdornment, Stack, styled, Tab, Tabs, TextField, Toolbar} from "@mui/material";
+import {AppBar, Box, InputAdornment, Stack, styled, Tab, Tabs, TextField, Toolbar,Button} from "@mui/material";
 import { Search} from "@mui/icons-material";
 import AccountPopover from "./AccountPopover";
 import {useNavigate} from "react-router-dom";
@@ -17,6 +17,9 @@ function Header() {
     const handleChange = (event, index) => {
         navigate(routes[index]);
         setValue(index);
+    };
+    function handleChangeL () {
+        navigate("/login");
     };
 
     return (
@@ -41,6 +44,15 @@ function Header() {
                         }}
                     />
                     <Box sx={{width: "100%"}}/>
+                    <Box sx={{ p: 2, pt: 1.5 }}>
+                    <Button onClick={handleChangeL}
+                        fullWidth
+                        color="inherit"
+                        variant="contained"
+                    >
+                        LogIn
+                    </Button>
+                </Box>
                     <AccountPopover/>
                 </Toolbar>
                 <Stack>
