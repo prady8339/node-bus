@@ -357,3 +357,16 @@ border:#858585;
   border-radius:50%;
 padding:3px;
 }
+
+pre{
+  overflow-x: hidden ;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word; 
+  background-color: #333333;
+  color:white;
+  border:none;
+}
