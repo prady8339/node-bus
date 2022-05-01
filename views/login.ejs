@@ -1,8 +1,48 @@
 <%- include('partials/header') %>
+       
+<script src="https://kit.fontawesome.com/ae641f6c5e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css/another.css">
 
 <body>
+
+
+
+
+
+
+
+
+
+
+  
   <div class="container">
     
+
+
+
+    
+
+<!--   
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+         </div> -->
+         <form action="/login" method="POST" id="form">
+            <h3>Login Here</h3>
+    
+     <label for="username">Username</label>
+     <input type="text" placeholder="Email or Phone" id="username" name="username" required>
+    
+    <label for="password">Password</label>
+     <input type="password" placeholder="Password" id="password" name="password" required>
+     <button type="submit">Log In</button>
+     <div class="social">
+        <a href="/auth/google"><div class="go"><i class="fab fa-google"></i>  Google</div></a>
+        <a href="/register"><div class="fb">Create Account</div></a>
+      </div>
+        </form>
+
+<!-- 
 <div class="container mt-5">
   <h1>Login</h1>
 
@@ -11,8 +51,8 @@
       <div class="card">
         <div class="card-body">
 
-          <!-- Makes POST request to /login route -->
-          <form action="/login" method="POST">
+        Makes POST request to /login route 
+          <form action="/login" method="POST" id="form">
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control" name="username">
@@ -40,7 +80,16 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 </div>
+<script>
+//   const form = document.getElementById("form");
 
+// form.addEventListener("mousemove", (e) => {
+//   let xAxis = (window.innerWidth / 20 - e.pageX) / 100;
+//   let yAxis = (window.innerHeight / 20 - e.pageY) / 100;
+//   form.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+
+// })
+</script>
 <%- include('partials/footer') %>

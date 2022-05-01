@@ -31,6 +31,7 @@ require('./routes/compose')(app,Post,User)
 require('./routes/postPage')(app);
 require('./routes/profile')(app,imgModel);
 require('./routes/settings')(app,imgModel,__dirname);
+require('./routes/websocket/server')(app);
 
 app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://localhost:${port}`);
