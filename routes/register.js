@@ -6,8 +6,8 @@ module.exports = function(app,User,passport){
       });
       
       app.post("/register", function (req, res) {
-      
-        User.register({ username: req.body.username }, req.body.password, function (err, user) {
+        
+        User.register({email: req.body.email, username : req.body.username}, req.body.password, function (err, user) {
           if (err) {
             console.log(err);
             res.redirect("/register");
