@@ -1,4 +1,4 @@
-<%- include partials/header.ejs %>
+
 
        
 <script src="https://kit.fontawesome.com/ae641f6c5e.js" crossorigin="anonymous"></script>
@@ -7,9 +7,13 @@
 
 <body>
   <div class="container">
-    
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
+   </div>
 
     <form action="/register" method="POST" id="form" style="height:600px;">
+      <h4><a href="/login" class="login-link"> <-- Login</a></h4>
       <h3>Create Your Account</h3>
 
 <label for="username">Email</label>
