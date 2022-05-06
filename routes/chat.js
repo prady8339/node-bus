@@ -13,6 +13,7 @@ app.get("/chat", (req, res) => {
         
         res.render('chat.ejs',{
           chat: chat,
+          username:req.user.username
         });
           }
         })
@@ -48,4 +49,13 @@ res.redirect('/chat');
       
        })
      
+
+       app.post('/delete', (req, res) => {
+         console.log(req.delete_post);
+        chatModel.deleteOne({ "_id":req.delete_post});
+        res.redirect("/chat")
+       })
+       app.post('/modify', (req, res) => {
+
+       })
 }
