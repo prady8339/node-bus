@@ -1,18 +1,51 @@
 
-module.exports = function(app,User){
+module.exports = function(app,User,chatModel){
 
 app.get("/chat", (req, res) => {
 
-    User.find({}, function (err, users) {
-      if(err){console.log(err);}else{
+  if (req.isAuthenticated()) {
+
+    chatModel.find({ }, function (err,chat) {
+      if (err) {
+        console.log(err);
+      } else {
+
         
-        res.render('chat.ejs', {
-              users: users,
-              userDP: "https://lh3.googleusercontent.com/a/AATXAJwtzq2EGAbTWB1lF_6zsXabeCdTs6fLkvapTmne=s96-c",
-              
-            });
+        res.render('chat.ejs',{
+          chat: chat,
+        });
           }
         })
+
+
+
+    }  else {
+        res.redirect("/login")
+      }
+
+       })
+
+
+       app.post('/chat', (req, res) => {
+
+
+
+User.find({ "_id": { $eq:req.user.id} }, function (err, foundUsers) {
+  if (err) {
+    console.log(err);
+  } else {
+
+    const chat = new chatModel({
+      username:foundUsers[0].username,
+      content:req.body.content
+     
+    });
+
+    chat.save();
+res.redirect('/chat');
+  }
+});
+      
        })
      
 }

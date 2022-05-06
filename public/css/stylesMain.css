@@ -396,3 +396,54 @@ pre{
 color:white;
   border:none;
 }
+.chat-messages{
+  background-color: rgba(15, 15, 15, 0.5);
+  border-radius: 10px;
+  padding : 5px;
+  padding-left:25px;
+  margin:5px;
+}
+.chat-messages>.username{
+  text-align: right;
+  font-size: small;
+  margin:0;
+  padding: 0;
+}
+.chat-messages>.content{
+  font-size: medium;
+}
+
+#msg{
+width: 600px;
+  border-radius: 5px;
+  height: 40px;
+  background-color: rgba(15, 15, 15, 0.5) ;
+  color:white;
+}
+.btn-chat{
+  background-color: rgba(255, 251, 251, 0.75) ;
+width: 130px;
+  height: 40px;
+} 
+.chat-form{
+  text-align: center;
+position: absolute;
+padding:5px;
+background-color: rgba(255, 251, 251, 0.5) ;
+border-radius: 5px;
+margin-top:10px;
+}
+.chat-section{
+  background-color: rgba(255, 251, 251, 0.75) ;
+  padding:25px;
+  border-radius: 5px;;
+
+
+
+max-height: 600px;
+  
+    overflow-x: scroll;
+    overflow-y: scroll; 
+    overflow: scroll;
+    height: 100vh;
+}

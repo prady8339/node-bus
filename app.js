@@ -20,8 +20,9 @@ passportme(app,User,passport);
 
 const Post = require('./schema/post');
 const imgModel = require('./schema/image');
+const chatModel = require('./schema/chat');
 
-require('./routes/chat')(app,User);
+require('./routes/chat')(app,User,chatModel);
 require('./routes/login')(app,passport);
 require('./routes/secrets')(app,Post);
 require('./routes/submit')(app,User);
