@@ -16,6 +16,7 @@ module.exports = function(app){
                 res.render('post.ejs', {
                   title: i.title,
                   content: i.content,
+                  imgurl:i.titleimg,
                   username:req.username
                 });
               }

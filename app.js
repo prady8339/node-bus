@@ -30,6 +30,7 @@ require('./routes/register')(app,User,passport);
 require('./routes/home')(app,Post,User);
 require('./routes/compose')(app,Post,User)
 require('./routes/postPage')(app);
+require('./routes/search')(app);
 require('./routes/profile')(app,imgModel);
 require('./routes/settings')(app,imgModel,__dirname);
 require('./routes/websocket/server')(app);
