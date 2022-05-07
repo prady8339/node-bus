@@ -45,7 +45,13 @@
             
         
             <div class="post-img">
-                  <img src="resources/favicon-32x32.png" alt="" srcset="">
+               <% let purl; if(post.titleimg=="undefine"){  purl="null"; %>
+               <img src="resources/favicon-32x32.png" srcset="">
+               
+               <% } else{ purl=post.titleimg;  %>
+                  <img src=<%=purl%> alt="" srcset="">
+
+             <%  } %>
                </div>
 
             </div>

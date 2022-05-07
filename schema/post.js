@@ -18,7 +18,9 @@ const postSchema = new mongoose.Schema({
     createat :{
       type: Date,
       default: () => new Date()
-    } 
+    } ,
+
+    titleimg:String
   });
 
 

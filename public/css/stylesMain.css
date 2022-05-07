@@ -192,6 +192,7 @@ transition:linear 0.7s;
 } 
 h5{
   margin-left: 10px;
+  color:white;
 }
 .compose-style{
   
@@ -307,6 +308,7 @@ color:white;
 }
 .post-img {
 width:20%;
+margin:auto;
 }
 .post-img>img{
 

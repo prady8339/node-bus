@@ -12,7 +12,7 @@
 
         <h1 class="post" style="padding:10px;;">Compose++</h1>
 
-<form action="/compose" method="POST" style="padding-top: 10px;">
+<form action="/compose"  enctype="multipart/form-data" method="POST" style="padding-top: 10px;">
   <div class="form-group composepost">
   <h4>Title</h4>
   <input class="form-control" type="text" name="postTitle">
@@ -20,6 +20,13 @@
   <h4>PostCard</h4>
 <textarea class="form-control" name="postBody"  cols="80" rows="5"></textarea>
 </div>
+
+<div>
+  <label for="image">Upload Image</label>
+  <input type="file" id="image"
+    name="image" value="" >
+</div>
+
 <br>
 <button type="submit" name="button" class="btn btn-primary">PUBLISH</button>
 </form>
