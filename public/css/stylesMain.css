@@ -32,7 +32,7 @@ a:hover{
     font-size: 12px;
     letter-spacing: 5px;
     border-bottom: 1px solid rgb(97, 97, 97);
-    background-color: rgba(255,255,255,0.13);
+    background-color: rgba(0, 0, 0, 0.5);
     margin-bottom: 30px;
 }
 .navbar-nav  li a:hover {
@@ -172,9 +172,18 @@ transition:linear 0.7s;
 
  
 }
-.post p,h2{
+.post-home{
+  border: 1px solid #858585;
+ border-radius:10px;
+  background-color:rgba(0, 0, 0, 0.5) ;
+}
+.post  p,h2{
   color:rgb(100, 100, 100);
   padding-left: 10px;
+}
+.post-home p{
+  color:white;
+  margin-left:10px;
 }
 .post-page p,h1{
   color:black;
