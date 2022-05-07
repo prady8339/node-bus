@@ -3,7 +3,7 @@ module.exports = function(app,Post,User){
   
     app.get("/compose", (req, res) => {
     if (req.isAuthenticated()) {
-            res.render('compose.ejs');
+            res.render('compose.ejs',{username:req.username});
             }  else {
                 res.redirect("/login")
               }

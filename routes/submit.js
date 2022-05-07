@@ -4,7 +4,7 @@ module.exports = function(app,User){
    
 app.get("/submit", function (req, res) {
     if (req.isAuthenticated()) {
-      res.render("submit");
+      res.render("submit",{username:req.username});
     } else {
       res.redirect("/login");
     }

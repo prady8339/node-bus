@@ -43,15 +43,18 @@
        <li id="compose"><a href="/search"><i class="fa fa-search fa-1x" ></i> Search</i></a></li>
      </ul>
   </div>
- 
- <div class="dropdown nav navbar-nav  ">
-   <button class="dropbtn"><i class="fas fa-user-secret fa-2x"></i></button>
-   <div class="dropdown-content">
-     <a href="/profile"><i class="fas fa-house-user"></i>-Profile</a>
-     <a href="/settings"><i class="fas fa-cog"></i>-Settings</a>
-     <a href="/login" class=logout>Login</a>
+ <%if(username==="undefined"){%>
+  <a href="/login"><button class="main-login-btn">Login</button></a>
   </div>
+<%}else{%>
+  <div class="dropdown nav navbar-nav  ">
+    <button class="dropbtn"><i class="fas fa-user-secret fa-2x"></i></button>
+    <div class="dropdown-content">
+      <a href="/profile"><i class="fas fa-house-user"></i>-Profile</a>
+      <a href="/settings"><i class="fas fa-cog"></i>-Settings</a>
+      <a href="/logout">Logout</a>
 
+  <%}%>
  </div>
 
 </nav>

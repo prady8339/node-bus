@@ -53,28 +53,36 @@
  
         <div class="chat-section ">
           <% chat.forEach(function(chat) { %>
-            <div class="chat-messages" >
+          
             <% if(username==chat.username){ %>
+              <div class="chat-messages-me" >
               <div class="dpdwn">
                 <span>...</span>
                 <div class="dpdwn-content">
                 
                 <form action="/delete" method="post">
-                  <input type="hidden"  name="delete_post" value=<%= chat.id %>>
-                  <button type="submit" class="md-btn" >delete</button>
+                  <input type="hidden"  id="deletePost" name="deletePost" value=<%= chat.id %>>
+                  <button type="submit" class="md-btn" value="submit" >delete</button>
                 </form>
                 <form action="/modify" method="post"><button type="submit" class="md-btn">modify</button></form>
                 </div>
               </div>
-          <%  } %>
+              <p style="color:white" class="content"><%= chat.content %> </p>
+
+              
+                <p style="color:white" class="username"><img src = "resources/check-to-slot-solid.svg" alt="My Happy SVG" class="check-svg"/><%= chat.username %></p>
+              </div>
+          <%  }else{ %>
+              <div class="chat-messages-other" >
+              
+              <p style="color:white" class="content"><%= chat.content %> </p>
+
+          
+                <p style="color:white" class="username"><%= chat.username %></p>
+              </div>
              
-              <p style="color:white" class="content"><%= chat.content %>
-                
-            </p>
-              <p style="color:white" class="username"><%= chat.username %></p>
-            </div>
            
-            <% }) %>
+            <% }}) %>
         </div>
         
         <form action="/chat" method="POST" class="chat-form">

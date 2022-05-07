@@ -51,11 +51,19 @@ res.redirect('/chat');
      
 
        app.post('/delete', (req, res) => {
-         console.log(req.delete_post);
-        chatModel.deleteOne({ "_id":req.delete_post});
-        res.redirect("/chat")
+         console.log(req.body.deletePost);
+         chatModel.findByIdAndRemove(req.body.deletePost, (err) => {
+          
+          if(err){
+            console.log(err);
+          }
+          else{
+            res.redirect("/chat")
+          }
+          });
+
        })
        app.post('/modify', (req, res) => {
-
+        res.send("<h1>under construction... :)</h1> ")
        })
 }

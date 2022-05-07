@@ -13,7 +13,9 @@ app.get("/auth/google/secrets",
   });
 
 app.get("/login", function (req, res) {
-  res.render("login");
+  res.render("login",{
+username:req.username
+  });
 });
 
 app.get("/logout", function (req, res) {

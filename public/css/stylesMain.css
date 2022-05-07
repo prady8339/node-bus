@@ -396,22 +396,45 @@ pre{
 color:white;
   border:none;
 }
-.chat-messages{
-  background-color: rgba(15, 15, 15, 0.5);
+.chat-messages-me{
+  background-color: rgba(30, 63, 66, 0.7);
   border-radius: 10px;
   padding : 5px;
   padding-left:25px;
   margin:5px;
-  margin-right: 25px;;
+  margin-right: 25px;
+  width: 75%;
+  margin-left: 175px;
 }
-.chat-messages>.username{
+.chat-messages-me>.username{
   text-align: right;
   font-size: small;
   margin:0;
   padding: 0;
 }
-.chat-messages>.content{
+.chat-messages-me>.content{
   font-size: medium;
+}
+.chat-messages-other{
+  background-color: rgba(84, 53, 114, 0.7);
+  border-radius: 10px;
+  padding : 5px;
+  padding-left:25px;
+  margin:5px;
+  margin-right: 25px;;
+  width: 75%;
+}
+.chat-messages-other>.username{
+  text-align: left;
+  font-size: small;
+  margin:0;
+  padding: 0;
+  margin-left: -10px;
+}
+.chat-messages-other>.content{
+  font-size: medium;
+  text-align: right;
+  margin-right: 10px;
 }
 
 #msg{
@@ -476,4 +499,32 @@ max-height: 600px;
   background-color: rgba(255, 8, 8, 0.5);
   color:white;
   width: 50px;
+}
+.main-login-btn{
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  float: right;
+  margin: 30px;
+  border-radius: 15px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  top: -10px;
+  background-color: rgba(249, 249, 249, 0.5);
+  color:white;
+  width:75px
+}
+.main-login-btn:hover{
+  background-color: rgba(117, 116, 116, 0.5);
+}
+.check-svg{
+  width: 14px;
+  color: white;
+  background-color: rgba(0, 234, 234,0.5);
+  position: relative;
+  left: -10px;
+}
+.check-svg:hover{
+  background-color: rgba(25, 211, 4, 0.597);
 }

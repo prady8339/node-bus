@@ -15,8 +15,8 @@ module.exports = function(app){
               if (storedTitle === requestedTitle) {
                 res.render('post.ejs', {
                   title: i.title,
-                  content: i.content
-      
+                  content: i.content,
+                  username:req.username
                 });
               }
             });

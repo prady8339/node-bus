@@ -7,10 +7,10 @@ app.get("/", (req, res) => {
 
       if (err) { console.log(err); }
       else {
-        
+        console.log(req.username);
         res.render('home.ejs', {
           posts: posts,
-       
+       username:req.username
         });
       }
 

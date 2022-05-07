@@ -31,7 +31,8 @@ const loc = where+"/uploads";
                 res.status(500).send('An error occurred', err);
             }
             else {
-                res.render('settings', { items: items });
+                res.render('settings', { items: items,
+                    username:req.username });
             }
         });
     }else{
