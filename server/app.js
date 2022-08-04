@@ -14,13 +14,13 @@ app.use(express.static('public'));
 const connection = require('./db');
 connection();
 
-const User = require('./schema/user');
-const passportme = require('./schema/passport');
+const User = require('./server/schema/user');
+const passportme = require('./server/schema/passport');
 passportme(app,User,passport);
 
-const Post = require('./schema/post');
-const imgModel = require('./schema/image');
-const chatModel = require('./schema/chat');
+const Post = require('./server/schema/post');
+const imgModel = require('./server/schema/image');
+const chatModel = require('./server/schema/chat');
 
 require('./routes/chat')(app,User,chatModel);
 require('./routes/login')(app,passport);
@@ -34,6 +34,10 @@ require('./routes/search')(app);
 require('./routes/profile')(app,imgModel);
 require('./routes/settings')(app,imgModel,__dirname);
 require('./routes/websocket/server')(app);
+
+app.get('/prady',(req,res)=>{
+  res.json({hello:"prady rocks"});
+})
 
 app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://localhost:${port}`);

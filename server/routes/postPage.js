@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Post = require('../schema/post');
+const Post = require('../server/schema/post');
 module.exports = function(app){
 
     app.get('/posts/:userId', function (req, res) {
