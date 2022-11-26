@@ -6,10 +6,7 @@ module.exports = function(app){
       });
       
       app.post("/search", function (req, res) {
-        console.log(req.body.search);
-
-        
-
+        res.redirect('/');
       });
       
              

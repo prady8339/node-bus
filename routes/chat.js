@@ -51,7 +51,7 @@ res.redirect('/chat');
      
 
        app.post('/delete', (req, res) => {
-
+         console.log(req.body.deletePost);
          chatModel.findByIdAndRemove(req.body.deletePost, (err) => {
           
           if(err){
