@@ -1,4 +1,4 @@
-# NODEBUS
+# [NODEBUS](https://nodebus.herokuapp.com/)
 
 Nodebus is a blogging website where the user can create their account and post their articles just like any other blogging website. In Nodebus users can also chat with other users and interact with the blogs.
 Nodebus ensures the protection of data no user password is known to any of the admins all are encrypted with the latest hash function along with salting.
