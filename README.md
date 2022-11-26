@@ -24,7 +24,8 @@ $> nodemon app.js
 2. browse posts.
 3. login from google or visit the registration page to create an account
 5. now you can post and chat with users.
-6. create post {there are some length constraints in the title and content so please provide a proper title}
+6. create post {there are some length constraints in the title and content} 
+{so please provide a proper title}
 7. Also select the image title to be shown on your post then publish.
 
 ```
