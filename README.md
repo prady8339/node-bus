@@ -29,7 +29,7 @@ $> nodemon app.js
 
 ```
 ## Contributor of this project 
-[Pradyumna Sing](https://github.com/prady8339/) and [Aditya Rana](https://github.com/ar7aditya/)
+[Pradyumna Singh](https://github.com/prady8339/) and [Aditya Rana](https://github.com/ar7aditya/)
 
 ## Contributing
 
