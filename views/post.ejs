@@ -12,13 +12,39 @@
     <pre><%= content %></pre>
 </div>
 
-<div class="comment-bar">
+<div class="post-footer">
     <div class="like-bar">
-        <span><i class="far fa-heart fa-2x"></i></span>
-        <span><i class="far fa-eye fa-2x"></i></span>
-        <span><i class="fas fa-share-square fa-2x"></i></span>
-        <span><i class="far fa-bookmark fa-2x"></i></span>
-        <input type="text" name="post-comment" id="post-comment" placeholder="comment bar :)">
+    <table class="bar-table">
+      <tr>
+        <th><button class="like-btn"><i class="fas fa-thumbs-up"></i></button></th>
+        <th><button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button></th>
+        <th><button class="share"><i class="fas fa-share"></i></button></th>
+      </tr>
+      <tr>
+        <td style="text-align: center;"><%= likes %></td>
+        <td style="text-align: center;"><%= dislikes %></td>
+        <td style="text-align: center;"><%= shares %></td>
+      </tr>
+      
+    </table>
+       
+        
+        <div class="comment-bar">
+      <input type="text" name="post-comment" id="post-comment" placeholder="comment bar :)">
+      <button class="send"><i class="fas fa-reply"></i></button>
+        </div>
+       <div class="list-comments">
+        <ul>
+          <% comments.forEach(function(comment){ %>
+            <li><%= comment.userComment %> <button class="send"><i class="fas fa-reply"></i></button> </li>
+              <ul>
+                <% comment.followUp.forEach(function(fup){ %>
+                    <li><%= fup.userComment %></li>
+                  <% }) %>
+              </ul>
+          <% }) %>
+        </ul>
+       </div>
     </div>
    
 </div>

@@ -247,10 +247,29 @@ color:white;
 .like-bar span{
   padding:5px;
 }
-.comment-bar{
+.post-footer{
   background-color:  rgba(255,255,255,0.5);
   border-radius:0px  0px 15px  15px;
 
+}
+.bar-table{
+  color:#0236f1;
+}
+.bar-table>td{
+  font-weight: bolder;
+}
+.bar-table>td:hover{
+  font-size: 40px;
+  color:#ad4005;
+  cursor: pointer;
+}
+.comment-bar{
+  background-color:  rgba(255,255,255,0.5);
+  border-radius:0px  0px 15px  15px;
+  padding: 10px;
+}
+.comment-bar>input{
+  margin-left: 200px;
 }
 .left-chat{
   border-right:2px solid grey;
@@ -636,4 +655,9 @@ border:none;
 
 @keyframes getWidth {
 	100% { width: 100%; }
+}
+
+.loader__element:nth-child(1) {
+  animation: animate var(--time) ease-in infinite;
+  animation-delay: calc(var(--time) * 1 / 3);
 }
