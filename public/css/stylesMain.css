@@ -661,3 +661,4 @@ border:none;
   animation: animate var(--time) ease-in infinite;
   animation-delay: calc(var(--time) * 1 / 3);
 }
+

@@ -16,23 +16,23 @@ connection();
 
 const User = require('./schema/user');
 const passportme = require('./schema/passport');
-passportme(app,User,passport);
+passportme(app, User, passport);
 
 const Post = require('./schema/post');
 const imgModel = require('./schema/image');
 const chatModel = require('./schema/chat');
 
-require('./routes/chat')(app,User,chatModel);
-require('./routes/login')(app,passport);
-require('./routes/secrets')(app,Post);
-require('./routes/submit')(app,User);
-require('./routes/register')(app,User,passport);
-require('./routes/home')(app,Post,User);
-require('./routes/compose')(app,Post,User)
+require('./routes/chat')(app, User, chatModel);
+require('./routes/login')(app, passport);
+require('./routes/secrets')(app, Post);
+require('./routes/submit')(app, User);
+require('./routes/register')(app, User, passport);
+require('./routes/home')(app, Post, User);
+require('./routes/compose')(app, Post, User)
 require('./routes/postPage')(app);
 require('./routes/search')(app);
-require('./routes/profile')(app,imgModel);
-require('./routes/settings')(app,imgModel,__dirname);
+require('./routes/profile')(app, User);
+require('./routes/settings')(app, imgModel, __dirname);
 require('./routes/websocket/server')(app);
 
 app.listen(process.env.PORT || port, () => {

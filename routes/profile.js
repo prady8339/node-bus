@@ -1,25 +1,25 @@
 
-module.exports = function(app,imgModel){
+module.exports = function (app, User) {
 
-    app.get("/profile", (req, res) => {
-        if (req.isAuthenticated()) {
-        imgModel.find({ "UserId": { $eq: req.user.id } }, function (err, userImg) {
-            if (err) {
-              console.log(err);
-            } else {
-              if (userImg) {
-                res.render("profile", {
-                  items: userImg,
-                  username:req.user.username
-                });
-              }
-            }
-          });
-        }  else {
-            res.redirect("/login")
-          }
-        })
-        
-        
-         
-    }
+  app.get('/profile/:userId', function (req, res) {
+    let requestedUser = req.params.userId;
+
+    User.find({ username: requestedUser }, (err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const data = user[0];
+        console.log(data.profileImg);
+        res.render('profile.ejs', {
+          username: data.username,
+          email: data.email,
+          imgurl: data.profileImg,
+        });
+
+
+      }
+    });
+  });
+
+
+}
