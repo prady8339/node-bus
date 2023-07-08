@@ -29,6 +29,9 @@ module.exports = function (app) {
     });
   });
 
-
+  app.post('/addLike', function (req, res) {
+    console.log("hi");
+    console.log(req.body);
+  });
 
 }

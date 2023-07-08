@@ -55,36 +55,41 @@ module.exports = function (app, User, passport) {
       });
     }
   ));
-
   app.post("/login", function (req, res) {
-
     const usernameOrEmail = req.body.username;
 
     const findUser = () => {
       return new Promise((resolve, reject) => {
-        User.findOne({
-          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
-        }, function (err, user) {
+        let query;
+        if (isValidEmail(usernameOrEmail)) {
+          query = { email: usernameOrEmail };
+        } else {
+          query = { username: usernameOrEmail };
+        }
+
+        User.findOne(query, function (err, userFind) {
           if (err) {
             reject(err);
           } else {
-            resolve(user);
+            resolve(userFind);
           }
         });
       });
     };
 
     findUser()
-      .then((user) => {
-        if (user) {
-          const loginUser = user.username;
+      .then((userFind) => {
+        if (userFind) {
+          const loginUser = userFind.username;
           console.log(loginUser);
-          const newUser = new User({
+
+          const user = new User({
             username: loginUser,
             password: req.body.password
           });
-          console.log(newUser);
-          req.login(newUser, function (err) {
+          console.log(user);
+
+          req.login(user, function (err) {
             if (err) {
               console.log(err);
             } else {
@@ -101,72 +106,135 @@ module.exports = function (app, User, passport) {
       .catch((err) => {
         console.log(err);
       });
-
-
-    // try {
-    //   const user = await User.findOne({
-    //     $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
-    //   }).exec();
-
-    //   if (user) {
-    //     const loginUser = user.username;
-
-    //     const newUser = new User({
-    //       username: loginUser,
-    //       password: req.body.password
-    //     });
-
-    //     req.login(newUser, function (err) {
-    //       if (err) {
-    //         console.log(err);
-    //       } else {
-    //         passport.authenticate("local")(req, res, function () {
-    //           res.redirect("/secrets");
-    //         });
-    //       }
-    //     });
-    //   } else {
-    //     console.log("Invalid username/email or password.");
-    //     // Handle the error or redirect to an appropriate page
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
-    // const usernameOrEmail = req.body.username;
-    // let loginUser;
-    // User.findOne({ $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] }, function (err, user) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     console.log(user);
-    //     loginUser = user.username
-    //   }
-    // });
-
-    // console.log(loginUser);
-
-    // const user = new User({
-    //   username: loginUser,
-    //   password: req.body.password
-    // });
-    // console.log(user);
-
-    // req.login(user, function (err) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     passport.authenticate("local")(req, res, function () {
-    //       res.redirect("/secrets");
-    //     });
-    //   }
-    // });
-
   });
+
+  function isValidEmail(email) {
+    // You can implement a regular expression or a library to validate the email format
+    // For simplicity, let's assume any string containing "@" is a valid email
+    return email.includes("@");
+  }
+
+
+
+  //   app.post("/login", function (req, res) {
+
+  //     const usernameOrEmail = req.body.username;
+
+  //     const findUser = () => {
+  //       return new Promise((resolve, reject) => {
+  //         User.findOne({
+  //           $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
+  //         }, function (err, userFind) {
+  //           if (err) {
+  //             reject(err);
+  //           } else {
+  //             resolve(userFind);
+  //           }
+  //         });
+  //       });
+  //     };
+
+  //     findUser()
+  //       .then((userFind) => {
+  //         if (userFind) {
+  //           const loginUser = userFind.username;
+  //           console.log(loginUser);
+  //           const user = new User({
+  //             username: loginUser,
+  //             password: req.body.password
+  //           });
+  //           console.log(user);
+  //           // req.login(newUser, function (err) {
+  //           //   if (err) {
+  //           //     console.log(err);
+  //           //   } else {
+  //           //     passport.authenticate("local")(req, res, function () {
+  //           //       res.redirect("/secrets");
+  //           //     });
+  //           //   }
+  //           // });
+  //           req.login(user, function (err) {
+  //             if (err) {
+  //               console.log(err);
+  //             } else {
+  //               passport.authenticate("local")(req, res, function () {
+  //                 res.redirect("/secrets");
+  //               });
+  //             }
+  //           });
+  //         } else {
+  //           console.log("Invalid username/email or password.");
+  //           // Handle the error or redirect to an appropriate page
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+
+
+  //     // try {
+  //     //   const user = await User.findOne({
+  //     //     $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
+  //     //   }).exec();
+
+  //     //   if (user) {
+  //     //     const loginUser = user.username;
+
+  //     //     const newUser = new User({
+  //     //       username: loginUser,
+  //     //       password: req.body.password
+  //     //     });
+
+  //     //     req.login(newUser, function (err) {
+  //     //       if (err) {
+  //     //         console.log(err);
+  //     //       } else {
+  //     //         passport.authenticate("local")(req, res, function () {
+  //     //           res.redirect("/secrets");
+  //     //         });
+  //     //       }
+  //     //     });
+  //     //   } else {
+  //     //     console.log("Invalid username/email or password.");
+  //     //     // Handle the error or redirect to an appropriate page
+  //     //   }
+  //     // } catch (err) {
+  //     //   console.log(err);
+  //     // }
+
+  //     // const usernameOrEmail = req.body.username;
+  //     // let loginUser;
+  //     // User.findOne({ $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] }, function (err, user) {
+  //     //   if (err) {
+  //     //     console.log(err);
+  //     //   } else {
+  //     //     console.log(user);
+  //     //     loginUser = user.username
+  //     //   }
+  //     // });
+
+  //     // console.log(loginUser);
+
+  //     // const user = new User({
+  //     //   username: loginUser,
+  //     //   password: req.body.password
+  //     // });
+  //     // console.log(user);
+
+  //     // req.login(user, function (err) {
+  //     //   if (err) {
+  //     //     console.log(err);
+  //     //   } else {
+  //     //     passport.authenticate("local")(req, res, function () {
+  //     //       res.redirect("/secrets");
+  //     //     });
+  //     //   }
+  //     // });
+
+  //   });
 
 
 }
-
 
 
 
