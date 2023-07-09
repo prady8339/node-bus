@@ -80,13 +80,13 @@ module.exports = function (app, User, passport) {
       .then((userFind) => {
         if (userFind) {
           const loginUser = userFind.username;
-          console.log(loginUser);
+          //  console.log(loginUser);
 
           const user = new User({
             username: loginUser,
             password: req.body.password
           });
-          console.log(user);
+          //console.log(user);
 
           req.login(user, function (err) {
             if (err) {

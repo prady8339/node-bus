@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.12",
     "cloudinary": "^1.28.1",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",

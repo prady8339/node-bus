@@ -3,9 +3,14 @@ const fs = require('fs');
 const multer = require('multer');
 const { storage } = require('../cloudinary/index');
 const upload = multer({ storage });
-
+const cheerio = require('cheerio');
 
 module.exports = function (app, Post, User) {
+
+  function extractTextFromHTML(htmlString) {
+    const $ = cheerio.load(htmlString);
+    return $('body').text();
+  }
 
   app.get("/compose", (req, res) => {
     if (req.isAuthenticated()) {
@@ -47,10 +52,11 @@ module.exports = function (app, Post, User) {
         } else {
           urlpath = req.file.path;
         }
-
+        const textContent = extractTextFromHTML(req.body.postBody);
         const post = new Post({
           title: req.body.postTitle,
           content: req.body.postBody,
+          textContent: textContent,
           date: date,
           time: time,
           UserId: foundUsers[0]._id,

@@ -12,6 +12,10 @@ const postSchema = new mongoose.Schema({
     required: true,
     minlength: 20
   },
+  textContent: {
+    type: String,
+    required: true,
+  },
   UserId: String,
   username: String,
   titleimg: String,

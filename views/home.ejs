@@ -5,7 +5,7 @@
 
   
 <div>
-<div class="jumbotron center-div home-search">
+<div class="jumbotron center-div">
 
    <div class="container">
       <i class="fas fa-search fa-6x"></i>
@@ -51,11 +51,11 @@
                   <p><a href="/profile/<%=x.userdata.username%>"><%= x.userdata.username %> </a></p>
                 
                </div>
-               <h5><%= x.post.createat %></h5>
+               <h5 id="createat"><%= x.post.createat %></h5>
                <%let pt = ""; if(x.post.title.length>51)  pt = x.post.title.substring(0,52)+" ..." ;
                else pt = x.post.title %> 
-               <%let pc = ""; if(x.post.content.length>103)  pc = x.post.content.substring(0,104)+" ..." ;
-               else pc = post.content %>
+               <%let pc = ""; if(x.post.textContent.length>190)  pc = x.post.textContent.substring(0,191)+" ..." ;
+               else pc = x.post.textContent %>
                <h2 class="title-link">  <a href="/posts/<%=x.post.id%>" ><%=pt%></a> </h2> 
             
                <p id="content-home"><%= pc %>  
@@ -105,6 +105,9 @@
 
 
    <script>
+
+  
+
    function extractTextFromHTML(htmlString) {
       const temporaryElement = document.createElement('div');
       temporaryElement.innerHTML = htmlString;
