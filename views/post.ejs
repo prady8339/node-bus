@@ -9,14 +9,18 @@
   </div>
 
     <h1><%= title %> </h1>
-    <pre><%= content %></pre>
+    <pre><%- content %></pre>
 </div>
 
 <div class="post-footer">
     <div class="like-bar">
     <table class="bar-table">
       <tr>
-        <th><form action="/addLike" method="post"><button class="like-btn" value=<%=title%> type="submit"><i class="fas fa-thumbs-up"></i></button></form></th>
+        <th>
+          <form action="/addLike" method="post">
+          <input type="hidden" id="likePost" name="likePost" value=<%=id %>>
+          <button class="like-btn"  type="submit"><i class="fas fa-thumbs-up"></i></button>
+          </form></th>
         <th><button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button></th>
         <th><button class="share"><i class="fas fa-share"></i></button></th>
       </tr>

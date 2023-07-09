@@ -48,7 +48,6 @@ module.exports = function (app, User, passport) {
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
     function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
       const defaultUsername = profile._json.email.split("@")[0];
       User.findOrCreate({ email: profile._json.email, username: defaultUsername, photo: profile._json.picture, name: profile.displayName, googleId: profile.id }, function (err, user) {
         return cb(err, user);
@@ -208,7 +207,7 @@ module.exports = function (app, User, passport) {
   //     //   if (err) {
   //     //     console.log(err);
   //     //   } else {
-  //     //     console.log(user);
+  //     //     );
   //     //     loginUser = user.username
   //     //   }
   //     // });

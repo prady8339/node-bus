@@ -1,19 +1,20 @@
 const _ = require('lodash');
-const Post = require('../schema/post');
-module.exports = function (app) {
+
+module.exports = function (app, Post, User) {
 
   app.get('/posts/:userId', function (req, res) {
-    let requestedTitle = _.lowerCase(req.params.userId);
-
+    //let requestedTitle = _.lowerCase(req.params.userId);
+    let requestedId = req.params.userId;
     Post.find((err, posts) => {
       if (err) {
         console.log(err);
       } else {
         posts.forEach((i) => {
-          const storedTitle = _.lowerCase(i.title);
+          const storedId = i.id;
 
-          if (storedTitle === requestedTitle) {
+          if (storedId === requestedId) {
             res.render('post.ejs', {
+              id: i._id,
               title: i.title,
               content: i.content,
               imgurl: i.titleimg,

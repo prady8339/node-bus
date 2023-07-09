@@ -29,8 +29,8 @@ require('./routes/submit')(app, User);
 require('./routes/register')(app, User, passport);
 require('./routes/home')(app, Post, User);
 require('./routes/compose')(app, Post, User)
-require('./routes/postPage')(app);
-require('./routes/search')(app);
+require('./routes/postPage')(app, Post, User);
+require('./routes/search')(app, Post);
 require('./routes/profile')(app, User);
 require('./routes/settings')(app, imgModel, __dirname);
 require('./routes/websocket/server')(app);

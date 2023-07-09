@@ -5,7 +5,7 @@
    
    
 
-<div class="jumbotron text-center">
+<div class="jumbotron center-div">
  
   <div class="container">
     <i class="fas fa-search fa-6x"></i>
@@ -19,15 +19,16 @@
 
 
       <form action="/search" method="post" class="searchForm" autocomplete="off">
-        
-            <input type="text" name="search" id="search" placeholder="Search.." >
-            <button type="submit"><i class="fas fa-search fa-1x"></i></button>
-
-         
+            <div class="search-bar">
+<input type="text" name="search" id="search" placeholder="Search..">
+<button type="submit" id="search_btn_main"><i class="fas fa-search fa-1x"></i></button> 
+            </div>
       </form>
-    
+  
     
   </div>
+
+ </div>
 </div>
 
 <%- include('partials/footer') %>

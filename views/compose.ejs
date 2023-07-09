@@ -13,12 +13,41 @@
         <h1 class="post" style="padding:10px;;">Compose++</h1>
 
 <form action="/compose"  enctype="multipart/form-data" method="POST" style="padding-top: 10px;">
+
+  
   <div class="form-group composepost">
   <h4>Title</h4>
   <input class="form-control" type="text" name="postTitle">
   <br>
   <h4>PostCard</h4>
-<textarea class="form-control" name="postBody"  cols="80" rows="5"></textarea>
+
+  <textarea class="form-control" id="post-ta" name="postBody" cols="80" rows="5" style="display: none;"></textarea>
+
+<div style="margin:auto;padding:12px 6px 36px;max-width:960px;">
+
+  
+  <div class="hs-docs-content-divider">
+
+
+    <!--Include the JS & CSS-->
+    <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
+    <script type="text/javascript" src="richtexteditor/rte.js"></script>
+    <script>RTE_DefaultConfig.url_base = 'richtexteditor'</script>
+    <script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
+    <div id="div_editor1">
+      <p>This is a default toolbar demo of Rich text editor.</p>
+      
+    </div>
+
+    <script>
+      var editor1 = new RichTextEditor("#div_editor1");
+			//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
+    </script>
+
+
+  </div>
+
+
 </div>
 
 <div>
@@ -28,12 +57,21 @@
 </div>
 
 <br>
-<button type="submit" name="button" class="btn btn-primary">PUBLISH</button>
+<button type="submit" name="button" class="btn btn-primary" onclick="sendHTMLCode()">PUBLISH</button>
 </form>
 
-          
-                
- 
+
+
+
+</div>
+<script src="res/patch.js"></script>
+  <script>
+    function sendHTMLCode() {
+      var htmlCode = editor1.getHTMLCode();
+      document.getElementById("post-ta").value = htmlCode;
+    }
+  </script>
+
        </div>
      
     
