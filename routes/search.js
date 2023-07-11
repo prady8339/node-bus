@@ -1,6 +1,9 @@
 module.exports = function (app, Post, User) {
   app.get("/search", function (req, res) {
-    res.render("search", { username: req.username });
+    if (!req.isAuthenticated())
+      res.render("search", { username: undefined });
+    else
+      res.render("search", { username: req.user.username });
   });
 
   app.post("/search", async function (req, res) {
@@ -28,7 +31,7 @@ module.exports = function (app, Post, User) {
         homeData.push(postWithUser);
       }
 
-      res.render("home.ejs", { homeData: homeData });
+      res.render("home.ejs", { homeData: homeData, username: req.user.username });
     } catch (err) {
       console.error(err);
       res.redirect("/");

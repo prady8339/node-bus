@@ -63,9 +63,11 @@
       <li><a href="/search"><i class="fa fa-search fa-1x"></i> Search</i></a></li>
 
     </ul>
+   <%if(!username){%>
     <a href="/register" class="action_btn">Get Started</a>
-    
-    
+    <%}else{%>
+    <a href="/logout" class="action_btn">Logout</a>
+    <%}%>
   </div>
 
 <div class="dropdown_menu">
@@ -74,8 +76,11 @@
   <li id="about"><a href="/chat"><i class="fas fa-comments fa-1x"> chat</i></a></li>
   <li id="compose"><a href="/compose"><i class="far fa-plus-square fa-1x"> post</i></a></li>
   <li id="compose"><a href="/search"><i class="fa fa-search fa-1x"></i> Search</i></a></li>
+  <%if(!username){%>
   <li><a href="/register" class="action_btn">Get Started</a></li>
-
+      <%}else{%>
+ <li> <a href="/logout" class="action_btn">Logout</a></div></li>
+    <%}%>
 </div>
 
 <div class="toggle_btn">

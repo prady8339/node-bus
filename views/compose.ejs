@@ -1,81 +1,80 @@
 <%- include partials/header.ejs %>
 
-<body>
-  <div class="container" style="padding-top: 5vh;">
-    
-
-
-
-      
-  <div class="row home-wrap">
-      <div class="col-sm-12 compose-style">
-
-        <h1 class="post" style="padding:10px;;">Compose++</h1>
-
-<form action="/compose"  enctype="multipart/form-data" method="POST" style="padding-top: 10px;">
-
-  
-  <div class="form-group composepost">
-  <h4>Title</h4>
-  <input class="form-control" type="text" name="postTitle">
-  <br>
-  <h4>PostCard</h4>
-
-  <textarea class="form-control" id="post-ta" name="postBody" cols="80" rows="5" style="display: none;"></textarea>
-
-<div style="margin:auto;padding:12px 6px 36px;max-width:960px;">
-
-  
-  <div class="hs-docs-content-divider">
-
-
-    <!--Include the JS & CSS-->
-    <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
-    <script type="text/javascript" src="richtexteditor/rte.js"></script>
-    <script>RTE_DefaultConfig.url_base = 'richtexteditor'</script>
-    <script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
-    <div id="div_editor1">
-      <p>This is a default toolbar demo of Rich text editor.</p>
-      
-    </div>
-
-    <script>
-      var editor1 = new RichTextEditor("#div_editor1");
-			//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
-    </script>
-
-
-  </div>
-
-
-</div>
-
-<div>
-  <label for="image">Upload Image</label>
-  <input type="file" id="image"
-    name="image" value="" >
-</div>
-
-<br>
-<button type="submit" name="button" class="btn btn-primary" onclick="sendHTMLCode()">PUBLISH</button>
-</form>
+  <body>
+    <div class="container" style="padding-top: 5vh;">
 
 
 
 
-</div>
-<script src="res/patch.js"></script>
-  <script>
-    function sendHTMLCode() {
-      var htmlCode = editor1.getHTMLCode();
-      document.getElementById("post-ta").value = htmlCode;
-    }
-  </script>
 
-       </div>
      
-    
-   </div>
-</div>
-<%- include partials/footer.ejs %>
+        <div class="jumbotron">
+
+          <h1 class="post" style="padding:10px;;">Compose++</h1>
+
+          <form action="/compose" enctype="multipart/form-data" method="POST" style="padding-top: 10px;">
+
+
+            <div class="form-group composepost">
+              <h4>Title</h4>
+              <input class="form-control" type="text" name="postTitle">
+              <br>
+              <h4>Post Content</h4>
+
+              <textarea class="form-control" id="post-ta" name="postBody" cols="80" rows="5"
+                style="display: none;"></textarea>
+
+              <div style="margin:auto;padding:12px 6px 36px;width:960px;">
+
+
+                <div class="hs-docs-content-divider">
+
+
+                  <!--Include the JS & CSS-->
+                  <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
+                  <script type="text/javascript" src="richtexteditor/rte.js"></script>
+                  <script>RTE_DefaultConfig.url_base = 'richtexteditor'</script>
+                  <script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
+                  <div id="div_editor1">
+                   
+
+                  </div>
+
+                  <script>
+                    var editor1 = new RichTextEditor("#div_editor1");
+			//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
+                  </script>
+
+
+                </div>
+
+
+              </div>
+
+              <div>
+                <label for="image">Upload Image</label>
+                <input type="file" id="image" name="image" value="">
+              </div>
+
+              <br>
+              <button type="submit" name="button" class="btn btn-primary" onclick="sendHTMLCode()">PUBLISH</button>
+          </form>
+
+
+
+
+        </div>
+        <script src="res/patch.js"></script>
+        <script>
+          function sendHTMLCode() {
+            var htmlCode = editor1.getHTMLCode();
+            document.getElementById("post-ta").value = htmlCode;
+          }
+        </script>
+
+      </div>
+
+
+    </div>
  
+    <%- include partials/footer.ejs %>

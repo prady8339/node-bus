@@ -14,7 +14,7 @@ module.exports = function (app, Post, User) {
 
   app.get("/compose", (req, res) => {
     if (req.isAuthenticated()) {
-      res.render('compose.ejs', { username: req.username });
+      res.render('compose.ejs', { username: req.user.username });
     } else {
       res.redirect("/login")
     }
@@ -48,7 +48,7 @@ module.exports = function (app, Post, User) {
         let urlpath;
 
         if (!req.file) {
-          urlpath = "null"
+          urlpath = "https://picsum.photos/1000?random=2"
         } else {
           urlpath = req.file.path;
         }
@@ -61,7 +61,8 @@ module.exports = function (app, Post, User) {
           time: time,
           UserId: foundUsers[0]._id,
           username: foundUsers[0].username,
-          titleimg: urlpath
+          titleimg: urlpath,
+          score: 100
         });
 
         post.save();

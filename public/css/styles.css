@@ -138,13 +138,12 @@ header{
 
   .dropdown_menu {
   left:2rem;
-  width: unset;
   }
 
 }
 
 #clock{
-  color:#7c7c7c;
+  color:#080808;
 }
 
 
@@ -281,10 +280,7 @@ h5{
     height: 75vh;
     color:white;
 }
-.form-control{
-  background-color:  rgba(1, 1, 1, 0.5);
-color:white;
-}
+
 
 .right-trend{
   color:white;
@@ -786,3 +782,23 @@ display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.hs-docs-content-divider{
+  width: 100%;
+}
+
+.compose-main-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background-color: #fff;
+}
+.compose-main-div>h4 {
+ color:white;
+}
+.compose-main-div>h4>span{
+  color: #4c8eaf;
+}
+

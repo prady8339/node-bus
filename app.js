@@ -31,7 +31,7 @@ require('./routes/home')(app, Post, User);
 require('./routes/compose')(app, Post, User)
 require('./routes/postPage')(app, Post, User);
 require('./routes/search')(app, Post, User);
-require('./routes/profile')(app, User);
+require('./routes/profile')(app, Post, User);
 require('./routes/settings')(app, imgModel, __dirname);
 require('./routes/websocket/server')(app);
 

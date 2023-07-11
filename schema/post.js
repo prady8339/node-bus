@@ -49,6 +49,9 @@ const postSchema = new mongoose.Schema({
   createat: {
     type: Date,
     default: Date.now
+  },
+  score: {
+    type: Number
   }
 });
 
