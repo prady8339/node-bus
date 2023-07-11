@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
+const hostname = process.env.HOSTNAME || 'localhost';
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -16,7 +17,7 @@ connection();
 
 const User = require('./schema/user');
 const passportme = require('./schema/passport');
-passportme(app, User, passport);
+passportme(app, User, passport, hostname, port);
 
 const Post = require('./schema/post');
 const imgModel = require('./schema/image');
@@ -36,6 +37,6 @@ require('./routes/settings')(app, imgModel, __dirname);
 require('./routes/websocket/server')(app);
 
 app.listen(process.env.PORT || port, () => {
-  console.log(`The application started successfully on port http://localhost:${port}`);
+  console.log(`The application started successfully on port http://${hostname}:${port}`);
 });
 

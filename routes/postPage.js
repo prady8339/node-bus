@@ -51,7 +51,7 @@ module.exports = function (app, Post, User) {
                   console.log(err);
                   res.status(500).send('Internal Server Error');
                 } else {
-                  console.log('liked');
+                  res.redirect('/posts/' + postid);
                 }
               });
             }
@@ -70,7 +70,7 @@ module.exports = function (app, Post, User) {
   app.post('/disLike', function (req, res) {
 
 
-    console.log(req.body.user);
+
     const postid = req.body.likePost;
 
     if (req.isAuthenticated()) {
@@ -88,6 +88,7 @@ module.exports = function (app, Post, User) {
           } else {
             post.dislikes.push(userId);
             post.save();
+            res.redirect('/posts/' + postid);
           }
         }
       });
@@ -123,6 +124,7 @@ module.exports = function (app, Post, User) {
 
           post.comments.push(newComment);
           post.save();
+          res.redirect('/posts/' + postid);
         }
       });
     } else {
@@ -135,7 +137,7 @@ module.exports = function (app, Post, User) {
     const commentId = req.body.commentId;
     const followUpComment = req.body.postComment;
 
-    console.log(req.body);
+
 
     if (req.isAuthenticated()) {
       const user = req.user;
@@ -160,6 +162,7 @@ module.exports = function (app, Post, User) {
           }
 
           post.save();
+          res.redirect('/posts/' + postId);
         }
       });
     } else {
@@ -182,7 +185,7 @@ module.exports = function (app, Post, User) {
         } else {
           post.shares.push(userId); // Insert the userId into the share[] array of the post
           post.save();
-          // Send a success status response if the share operation is successful
+          res.redirect('/posts/' + postId);
         }
       });
     } else {
