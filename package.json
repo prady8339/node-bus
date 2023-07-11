@@ -4,8 +4,9 @@
   "description": "krenge jaldi kuch",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
-  },
+            "start": "node app.js",
+            "dev": "nodemon app.js"
+         },
   "author": "",
   "license": "ISC",
   "dependencies": {
