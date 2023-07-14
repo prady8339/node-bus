@@ -66,7 +66,7 @@ module.exports = function (app, Post, User) {
         });
 
         post.save();
-        res.redirect("/");
+        res.redirect("/home");
 
 
       }

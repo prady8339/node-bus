@@ -37,4 +37,29 @@ module.exports = function (app, Post, User) {
       res.redirect("/");
     }
   });
+
+  app.post('/search/suggestions', async function (req, res) {
+    try {
+      console.log(req.body);
+      const searchQuery = req.body.search;
+      // console.log(searchQuery);
+      const regexQuery = new RegExp(searchQuery, 'i');
+
+      // Query the database for search suggestions
+      const suggestions = await Post.find(
+        { title: regexQuery }, // Filter suggestions based on the title field
+        'title' // Only select the title field for suggestions
+      )
+        .limit(5) // Limit the number of suggestions to fetch
+        .exec();
+
+      const suggestionTitles = suggestions.map(suggestion => suggestion.title);
+      res.json(suggestionTitles);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
+  });
+
+
 };

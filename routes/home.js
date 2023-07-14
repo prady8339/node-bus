@@ -1,7 +1,12 @@
 
+
+
+
 module.exports = function (app, Post, User) {
 
-  app.get("/", (req, res) => {
+  app.get("/", async (req, res) => {
+
+
     Post.find({}, (err, posts) => {
       if (err) {
         console.log(err);

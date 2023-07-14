@@ -34,7 +34,7 @@ require('./routes/postPage')(app, Post, User);
 require('./routes/search')(app, Post, User);
 require('./routes/profile')(app, Post, User);
 require('./routes/settings')(app, imgModel, __dirname);
-require('./routes/websocket/server')(app);
+// require('./routes/websocket/server')(app);
 
 app.listen(process.env.PORT || port, () => {
   console.log(`The application started successfully on port http://${hostname}:${port}`);
