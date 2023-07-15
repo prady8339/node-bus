@@ -29,9 +29,6 @@ $> nodemon app.js
 7. Also select the image title to be shown on your post then publish.
 
 ```
-## Contributor of this project 
-[Pradyumna Singh](https://github.com/prady8339/) and [Aditya Rana](https://github.com/ar7aditya/)
-
 ## Contributing
 
 Pull requests are welcome. For significant changes, please open an issue first
