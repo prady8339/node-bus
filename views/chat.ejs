@@ -1,122 +1,103 @@
- 
-    <%- include partials/header.ejs %> 
-
-
-
-</head>
-
-<body>
-  
-</body>
-</html>
-
-
-
-
- <body>
-  
-
-
-
-
-    <div class="container">
-      
-    <div class="row home-wrap">
-        <div class="col-sm-4 right-trend">
- 
-          
-
-          
-                <h1><i class="fas fa-smile"></i> NodeChat</h1>
-                <a id="leave-btn" class="btn">Leave Room</a>
-              </header>
-              <div class="chat-main">
-                <div class="chat-sidebar">
-                  <h3><i class="fas fa-comments"></i> Room Name:</h3>
-                  <h3><a href="null">Room1</a></h3>
-                  <h3><a href="null">Room2</a></h3>
-                  <h3><a href="null">Room3</a></h3>
-                  <h3><a href="null">Room4</a></h3>
-                  <h2 id="room-name"></h2>
-                  <h3><i class="fas fa-users"></i> Users</h3>
-
-     
-               
-                </div>
-              
-              </div>  
-   
-         </div>
-       <div class="col-sm-8 ">
-
- 
- 
-        <div class="chat-section ">
-          <% chat.forEach(function(chat) { %>
-          
-            <% if(username==chat.username){ %>
-              <div class="chat-messages-me" >
-              <div class="dpdwn">
-                <span>...</span>
-                <div class="dpdwn-content">
-                
-                <form action="/delete" method="post">
-                  <input type="hidden"  id="deletePost" name="deletePost" value=<%= chat.id %>>
-                  <button type="submit" class="md-btn" value="submit" >delete</button>
-                </form>
-                <form action="/modify" method="post"><button type="submit" class="md-btn">modify</button></form>
-                </div>
-              </div>
-              <p style="color:white" class="content"><%= chat.content %> </p>
-
-              
-                <p style="color:white" class="username"><img src = "resources/check-to-slot-solid.svg" alt="My Happy SVG" class="check-svg"/><%= chat.username %></p>
-              </div>
-          <%  }else{ %>
-              <div class="chat-messages-other" >
-              
-              <p style="color:white" class="content"><%= chat.content %> </p>
-
-          
-                <p style="color:white" class="username"><%= chat.username %></p>
-              </div>
-             
-           
-            <% }}) %>
-        </div>
-        
-        <form action="/chat" method="POST" class="chat-form">
-          <input
-            id="msg" class="msg-class"
-            type="text"
-            placeholder="Enter Message"
-            required
-            autocomplete="off" name="content"
-          />
-          <button class="btn btn-chat" type="submit"><i class="fas fa-paper-plane"></i> Send</button>
-        </form>
-
-       </div>
-      
-     </div>
-</div>
+<%- include partials/header.ejs %>
 
   <body>
-   
-      <div class="chat-form-container">
-        
+
+    <div class="jumbotron-dark">
+      <div class="container">
+      <div class="row">
+        <div class="col">
+          
+          <div class="chat-main">
+            <div class="chat-sidebar">
+              <h3><i class="fas fa-comments"></i> Room Name:</h3>
+              <% chatrooms.forEach(function(chat) { %>
+                <%const chatLink = "/chat/"+chat.id%>
+              <h3><a href= <%=chatLink%> ><%=chat.roomname%></a></h3>
+              <% }) %>
+              <h2 id="room-name"></h2>
+              <h3><i class="fas fa-users"></i> Users</h3>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-8">
+         
+
+
+          <div class="chat-section container">
+            <% chat.forEach(function(chat) { %>
+              <div class="row">
+                <% if(username==chat.username) { %>
+                  <div class="chat-messages-me  " style="margin-left: 25%;">
+                    <div class="del-chat">
+                      <form action="/delete" method="post">
+                        <input type="hidden" id="deletePost" name="deletePost" value="<%= chat.id %>">
+                        <button type="submit" class="md-btn" value="submit">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </form>
+                    </div>
+                    <p style="color: white" class="chat-content-me">
+                      <%= chat.content %>
+                    </p>
+          
+                  </div>
+                 
+          
+                  <% } else { %>
+                    <div class="row">
+                      <div class="chat-messages-other">
+                        <p style="color: white" class="chat-username-other">
+                          <% const userLink = "/profile/"+chat.username %>
+                          <a href=<%=userLink%>> <%= chat.username %></a>
+                        </p>
+                       
+                        <p style="color: white" class="chat-content-other">
+                          <%= chat.content %>
+                        </p>
+                      </div>
+                    </div>
+                    <% } %>
+              </div>
+              <% }) %>
+          </div>
+
+          <div class="search-container">
+            <form action="/chat" method="POST">
+              <div class="search-bar">
+                <input id="search" class="search-input" type="text" placeholder="Enter Message" name="content">
+                <button class="search-btn" type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+
+
+        </div>
+         
+      </div>
       </div>
     </div>
 
-<!--Add the following script at the bottom of the web page (before </body></html>)-->
-<script type="text/javascript">function add_chatinline() { var hccid = 23686571; var nt = document.createElement("script"); nt.async = true; nt.src = "https://mylivechat.com/chatinline.aspx?hccid=" + hccid; var ct = document.getElementsByTagName("script")[0]; ct.parentNode.insertBefore(nt, ct); }
-  add_chatinline();</script>
 
 
+<script>
+  const chatSection = document.querySelector(".chat-section");
 
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    // Function to scroll to the bottom of the chat section
+    function scrollToBottom() {
+      chatSection.scrollTop = chatSection.scrollHeight;
+    }
+
+    // Call the scrollToBottom function whenever needed
+    scrollToBottom();
+</script>
     <script src="js/main.js"></script>
- 
-    <%- include partials/footer.ejs %> 
 
-   
+    <%- include partials/footer.ejs %>
+  </body>
+
+  </html>

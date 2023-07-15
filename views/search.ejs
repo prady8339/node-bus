@@ -32,34 +32,34 @@
  </div>
 </div>
 <script>
-  function getSearchSuggestions() {
-      const searchInput = document.getElementById('search').value;
-      const searchSuggestionsDiv = document.getElementById('searchSuggestions');
+  // function getSearchSuggestions() {
+  //     const searchInput = document.getElementById('search').value;
+  //     const searchSuggestionsDiv = document.getElementById('searchSuggestions');
 
-      // Clear previous suggestions
-      searchSuggestionsDiv.innerHTML = '';
+  //     // Clear previous suggestions
+  //     searchSuggestionsDiv.innerHTML = '';
 
-      // Send an AJAX request to the server
-      if (searchInput.length > 0) {
-        fetch('/search/suggestions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ search: searchInput }),
-        })
-          .then(response => response.json())
-          .then(data => {
-            // Display the search suggestions
-            data.forEach(suggestion => {
-              const suggestionElement = document.createElement('p');
-              suggestionElement.textContent = suggestion;
-              searchSuggestionsDiv.appendChild(suggestionElement);
-            });
-          })
-          .catch(error => console.error(error));
-      }
-    }
+  //     // Send an AJAX request to the server
+  //     if (searchInput.length > 0) {
+  //       fetch('/search/suggestions', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ search: searchInput }),
+  //       })
+  //         .then(response => response.json())
+  //         .then(data => {
+  //           // Display the search suggestions
+  //           data.forEach(suggestion => {
+  //             const suggestionElement = document.createElement('p');
+  //             suggestionElement.textContent = suggestion;
+  //             searchSuggestionsDiv.appendChild(suggestionElement);
+  //           });
+  //         })
+  //         .catch(error => console.error(error));
+  //     }
+  //   }
 
 
 </script>

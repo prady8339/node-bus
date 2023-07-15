@@ -1,119 +1,104 @@
 const _ = require('lodash');
 
 module.exports = function (app, Post, User) {
-
-  app.get('/posts/:userId', function (req, res) {
-    //let requestedTitle = _.lowerCase(req.params.userId);
-    let requestedId = req.params.userId;
-    Post.find((err, posts) => {
-      if (err) {
-        console.log(err);
-      } else {
-        posts.forEach((i) => {
-          const storedId = i.id;
-
-          if (storedId === requestedId) {
-            res.render('post.ejs', {
-              id: i._id,
-              title: i.title,
-              content: i.content,
-              imgurl: i.titleimg,
-              username: req.username,
-              likes: i.likes.length,
-              dislikes: i.dislikes.length,
-              shares: i.shares.length,
-              comments: i.comments,
-            });
-          }
-        });
+  app.get('/posts/:userId', async function (req, res) {
+    try {
+      let requestedId = req.params.userId;
+      const posts = await Post.find().exec();
+      for (const post of posts) {
+        const storedId = post.id;
+        if (storedId === requestedId) {
+          res.render('post.ejs', {
+            id: post._id,
+            title: post.title,
+            content: post.content,
+            imgurl: post.titleimg,
+            username: req.username,
+            likes: post.likes.length,
+            dislikes: post.dislikes.length,
+            shares: post.shares.length,
+            comments: post.comments,
+          });
+          break;
+        }
       }
-    });
-  });
-  app.post('/addLike', function (req, res) {
-    const postid = req.body.likePost;
-
-    if (req.isAuthenticated()) {
-      const user = req.user;
-      const userId = user._id;
-
-      Post.findById(postid, function (err, post) {
-        if (err) {
-          console.log(err);
-          res.status(500).send('Internal Server Error');
-        } else {
-          if (post) {
-            if (post.likes.includes(userId)) {
-              console.log('already liked');
-            } else {
-              post.likes.push(userId);
-              post.save(function (err) {
-                if (err) {
-                  console.log(err);
-                  res.status(500).send('Internal Server Error');
-                } else {
-                  res.redirect('/posts/' + postid);
-                }
-              });
-            }
-          } else {
-            console.log('Post not found');
-            res.status(404).send('Post not found');
-          }
-        }
-      });
-    } else {
-      // If the user is not authenticated, redirect them to the login page
-      res.redirect('/login');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
     }
   });
 
-  app.post('/disLike', function (req, res) {
+  app.post('/addLike', async function (req, res) {
+    try {
+      const postid = req.body.likePost;
 
+      if (req.isAuthenticated()) {
+        const user = req.user;
+        const userId = user._id;
 
-
-    const postid = req.body.likePost;
-
-    if (req.isAuthenticated()) {
-
-      const user = req.user;
-      const userId = user._id;
-
-
-
-      Post.findById(postid, function (err, post) {
-        if (err) {
-          console.log(err);
-        } else {
-          if (post.dislikes.includes(userId)) {
+        const post = await Post.findById(postid).exec();
+        if (post) {
+          if (post.likes.includes(userId)) {
+            console.log('already liked');
           } else {
+            post.likes.push(userId);
+            await post.save();
+          }
+        } else {
+          console.log('Post not found');
+          res.status(404).send('Post not found');
+          return;
+        }
+        res.redirect('/posts/' + postid);
+      } else {
+        res.redirect('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  app.post('/disLike', async function (req, res) {
+    try {
+      const postid = req.body.likePost;
+
+      if (req.isAuthenticated()) {
+        const user = req.user;
+        const userId = user._id;
+
+        const post = await Post.findById(postid).exec();
+        if (post) {
+          if (!post.dislikes.includes(userId)) {
             post.dislikes.push(userId);
-            post.save();
-            res.redirect('/posts/' + postid);
+            await post.save();
           }
+        } else {
+          console.log('Post not found');
+          res.status(404).send('Post not found');
+          return;
         }
-      });
-    } else {
-      // If the user is not authenticated, redirect them to the login page
-      res.redirect('/login');
+        res.redirect('/posts/' + postid);
+      } else {
+        res.redirect('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
     }
-
   });
 
-  app.post('/comment', function (req, res) {
-    // console.log(req.body);
+  app.post('/comment', async function (req, res) {
+    try {
+      const postid = req.body.commentId;
+      const comment = req.body.postComment;
 
-    // console.log(req.body.user);
-    const postid = req.body.commentId;
-    const comment = req.body.postComment;
+      if (req.isAuthenticated()) {
+        const user = req.user;
+        const userId = user._id;
 
-    if (req.isAuthenticated()) {
-      const user = req.user;
-      const userId = user._id;
-
-      Post.findById(postid, function (err, post) {
-        if (err) {
-          console.log(err);
-        } else {
+        const post = await Post.findById(postid).exec();
+        if (post) {
           const newComment = {
             UserId: userId,
             username: user.username,
@@ -121,77 +106,81 @@ module.exports = function (app, Post, User) {
             $timeStamp: new Date(),
             followUp: []
           };
-
           post.comments.push(newComment);
-          post.save();
-          res.redirect('/posts/' + postid);
+          await post.save();
+        } else {
+          console.log('Post not found');
+          res.status(404).send('Post not found');
+          return;
         }
-      });
-    } else {
-      // If the user is not authenticated, redirect them to the login page
-      res.redirect('/login');
+        res.redirect('/posts/' + postid);
+      } else {
+        res.redirect('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
     }
   });
-  app.post('/followUp', function (req, res) {
-    const postId = req.body.postId; // Assuming you have a postId field in your request body
-    const commentId = req.body.commentId;
-    const followUpComment = req.body.postComment;
 
+  app.post('/followUp', async function (req, res) {
+    try {
+      const postId = req.body.postId;
+      const commentId = req.body.commentId;
+      const followUpComment = req.body.postComment;
 
+      if (req.isAuthenticated()) {
+        const user = req.user;
+        const userId = user._id;
 
-    if (req.isAuthenticated()) {
-      const user = req.user;
-      const userId = user._id;
-
-      Post.findById({ _id: postId }, function (err, post) {
-        if (err) {
-          console.log(err);
-        } else {
+        const post = await Post.findById({ _id: postId }).exec();
+        if (post) {
           const newFollowUp = {
             UserId: userId,
             username: user.username,
             userComment: followUpComment,
             $timeStamp: new Date()
           };
-
-          // Find the comment by its ID and push the new follow-up comment
-          // console.log(post);
           const comment = post.comments.find(c => c._id.toString() === commentId);
           if (comment) {
             comment.followUp.push(newFollowUp);
+            await post.save();
           }
-
-          post.save();
-          res.redirect('/posts/' + postId);
-        }
-      });
-    } else {
-      // If the user is not authenticated, redirect them to the login page
-      res.redirect('/login');
-    }
-  });
-
-  app.post('/share', function (req, res) {
-
-    const postId = req.body.likePost; // Assuming you have a postId field in your request body
-    // Assuming you have a userId field in your request body
-
-    if (req.isAuthenticated()) {
-      const userId = req.user.id;
-      Post.findById(postId, function (err, post) {
-        if (err) {
-          res.redirect('/login');
-          console.log(err);
         } else {
-          post.shares.push(userId); // Insert the userId into the share[] array of the post
-          post.save();
-          res.redirect('/posts/' + postId);
+          console.log('Post not found');
+          res.status(404).send('Post not found');
+          return;
         }
-      });
-    } else {
-      // If the user is not authenticated, redirect them to the login page
-      res.redirect('/login');
+        res.redirect('/posts/' + postId);
+      } else {
+        res.redirect('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
     }
   });
 
-}
+  app.post('/share', async function (req, res) {
+    try {
+      const postId = req.body.likePost;
+      if (req.isAuthenticated()) {
+        const userId = req.user.id;
+        const post = await Post.findById(postId).exec();
+        if (post) {
+          post.shares.push(userId);
+          await post.save();
+          res.redirect('/posts/' + postId);
+        } else {
+          console.log('Post not found');
+          res.status(404).send('Post not found');
+        }
+      } else {
+        res.redirect('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+};

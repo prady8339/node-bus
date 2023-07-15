@@ -21,45 +21,42 @@ module.exports = function (app, Post, User) {
 
       const homeData = [];
 
-      for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
-        const userinfo = await User.findOne({ _id: post.UserId }).exec();
-        const postWithUser = {
-          post: post,
-          userdata: userinfo,
-        };
-        homeData.push(postWithUser);
-      }
-
-      res.render("home.ejs", { homeData: homeData, username: req.user.username });
+      await Promise.all(
+        posts.map(async (post) => {
+          const userinfo = await User.findOne({ _id: post.UserId }).exec();
+          const postWithUser = {
+            post: post,
+            userdata: userinfo,
+          };
+          homeData.push(postWithUser);
+        })
+      );
+      const username = req.isAuthenticated() ? req.user.username : undefined;
+      res.render("home.ejs", { homeData: homeData, username: username });
     } catch (err) {
       console.error(err);
       res.redirect("/");
     }
   });
 
-  app.post('/search/suggestions', async function (req, res) {
-    try {
-      console.log(req.body);
-      const searchQuery = req.body.search;
-      // console.log(searchQuery);
-      const regexQuery = new RegExp(searchQuery, 'i');
+  // app.post('/search/suggestions', async function (req, res) {
+  //   try {
+  //     console.log(req.body);
+  //     const searchQuery = req.body.search;
+  //     const regexQuery = new RegExp(searchQuery, 'i');
 
-      // Query the database for search suggestions
-      const suggestions = await Post.find(
-        { title: regexQuery }, // Filter suggestions based on the title field
-        'title' // Only select the title field for suggestions
-      )
-        .limit(5) // Limit the number of suggestions to fetch
-        .exec();
+  //     const suggestions = await Post.find(
+  //       { title: regexQuery },
+  //       'title'
+  //     )
+  //       .limit(5)
+  //       .exec();
 
-      const suggestionTitles = suggestions.map(suggestion => suggestion.title);
-      res.json(suggestionTitles);
-    } catch (err) {
-      console.error(err);
-      res.sendStatus(500);
-    }
-  });
-
-
+  //     const suggestionTitles = suggestions.map(suggestion => suggestion.title);
+  //     res.json(suggestionTitles);
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.sendStatus(500);
+  //   }
+  // });
 };

@@ -6,9 +6,20 @@ module.exports = function (app, User, passport) {
     res.render("register", { username: req.username });
   });
 
-  app.post("/register", function (req, res) {
+  app.post("/register", async function (req, res) {
+    try {
+      await User.register({ email: req.body.email, username: req.body.username, photo: "https://picsum.photos/200" }, req.body.password);
+      passport.authenticate("local")(req, res, function () {
+        res.redirect("/secrets");
+      });
+    } catch (err) {
+      console.log(err);
+      res.redirect("/register");
+    }
+  });
+};
 
-    //     const output = `
+ //     const output = `
     //                   <h3>Hi,</h3>
     //                   <p>Hi,
 
@@ -49,18 +60,3 @@ module.exports = function (app, User, passport) {
 
     //       res.redirect('/');
     //     });
-    User.register({ email: req.body.email, username: req.body.username, photo: "https://picsum.photos/200" }, req.body.password, function (err, user) {
-      if (err) {
-        console.log(err);
-        res.redirect("/register");
-      } else {
-        passport.authenticate("local")(req, res, function () {
-          res.redirect("/secrets");
-        });
-      }
-    });
-
-  });
-
-
-}
