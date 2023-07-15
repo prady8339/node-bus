@@ -11,9 +11,8 @@ note:for the following procedure to work the user need to have node and npm inst
 
 1. open terminal
 $> git install https://github.com/prady8339/node-bus
-$> cd server
 $> npm install
-$> nodemon app.js
+$> node app.js
 
 ```
 
