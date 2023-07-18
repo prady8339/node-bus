@@ -1,4 +1,6 @@
-# [NODEBUS](https://nodebus.herokuapp.com/)
+
+# [NODEBUS](https://node-bus.cyclic.app/)
+
 
 Nodebus is a blogging website where the user can create their account and post their articles just like any other blogging website. In Nodebus users can also chat with other users and interact with the blogs.
 Nodebus ensures the protection of data no user password is known to any of the admins all are encrypted with the latest hash function along with salting.
@@ -11,9 +13,8 @@ note:for the following procedure to work the user need to have node and npm inst
 
 1. open terminal
 $> git install https://github.com/prady8339/node-bus
-$> cd server
 $> npm install
-$> nodemon app.js
+$> node app.js
 
 ```
 
@@ -29,9 +30,6 @@ $> nodemon app.js
 7. Also select the image title to be shown on your post then publish.
 
 ```
-## Contributor of this project 
-[Pradyumna Singh](https://github.com/prady8339/) and [Aditya Rana](https://github.com/ar7aditya/)
-
 ## Contributing
 
 Pull requests are welcome. For significant changes, please open an issue first

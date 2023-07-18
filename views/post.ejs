@@ -9,16 +9,72 @@
   </div>
 
     <h1><%= title %> </h1>
-    <pre><%= content %></pre>
+    <pre><%- content %></pre>
 </div>
 
-<div class="comment-bar">
+<div class="post-footer">
     <div class="like-bar">
-        <span><i class="far fa-heart fa-2x"></i></span>
-        <span><i class="far fa-eye fa-2x"></i></span>
-        <span><i class="fas fa-share-square fa-2x"></i></span>
-        <span><i class="far fa-bookmark fa-2x"></i></span>
-        <input type="text" name="post-comment" id="post-comment" placeholder="comment bar :)">
+    <table class="bar-table">
+    <tr>
+      <th>
+        <form action="/addLike" method="post">
+          <input type="hidden" id="likePost" name="likePost" value=<%=id %>>
+          <button class="like-btn" type="submit"><i class="fas fa-thumbs-up"></i></button>
+        </form>
+      </th>
+      <th>
+        <form action="/disLike" method="post">
+          <input type="hidden" id="likePost" name="likePost" value=<%=id %>>
+          <button class="dislike-btn" type="submit">
+            <i class="fas fa-thumbs-down"></i>
+          </button>
+        </form>
+      </th>
+      <th>
+        <form action="/share" method="post">
+          <input type="hidden" id="likePost" name="likePost" value=<%=id %>>
+          <button class="share" id="copyButton" type="submit">
+            <i class="fas fa-share"></i>
+        </form>
+        </button>
+      </th>
+    </tr>
+        <td style="text-align: center;"><%= likes %></td>
+        <td style="text-align: center;"><%= dislikes %></td>
+        <td style="text-align: center;"><%= shares %></td>
+      </tr>
+      
+    </table>
+       
+        
+        <div class="comment-bar">
+          <form action="/comment" method="post">
+            <input type="hidden" id="comment-id" name="commentId" value=<%=id %>>
+      <input type="text" name="postComment" id="post-comment" placeholder="comment bar :)">
+      <button class="send" type="submit"><i class="fas fa-reply"></i></button>
+          </form>
+      
+        </div>
+      <div class="list-comments">
+        <ul>
+          <% comments.forEach(function(comment){ %>
+            <li>
+              <%= comment.userComment %>
+                <form action="/followUp" method="post">
+                  <input type="hidden" id="post-id" name="postId" value=<%=id%>>
+                  <input type="hidden" id="comment-id" name="commentId" value=<%=comment._id %>>
+                  <input type="text" name="postComment" id="post-comment" placeholder="comment bar :)">
+                  <button class="send" type="submit"><i class="fas fa-reply"></i></button>
+                </form>
+            </li>
+            <% comment.followUp.forEach(function(fup){ %>
+              <li>
+                <%= fup.userComment %>
+              </li>
+              <% }) %>
+                <% }) %>
+        </ul>
+      </div>
     </div>
    
 </div>
@@ -30,4 +86,25 @@
     <p>Made with ❤️ by 𝖓𝖔𝖉𝖊 𝖇𝖚𝖘 team</p>
   </div>
 </div>
+
+
+<script>
+  const copyButton = document.getElementById('copyButton');
+
+  copyButton.addEventListener('click', () => {
+    const url = window.location.href;
+
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        console.log('URL copied to clipboard:', url);
+        // Optionally, display a success message to the user
+        alert('URL copied to clipboard!');
+      })
+      .catch((error) => {
+        console.error('Failed to copy URL to clipboard:', error);
+        // Optionally, display an error message to the user
+        alert('Failed to copy URL to clipboard!');
+      });
+  });
+  </script>
 <%- include partials/footer -%>

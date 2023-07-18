@@ -6,16 +6,16 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    googleId: String,
-    name: String,
-    photo: String,
-    secret: String,
-  });
+  email: String,
+  password: String,
+  googleId: String,
+  name: String,
+  photo: String,
+  secret: String,
+});
 
 
-  userSchema.plugin(passportLocalMongoose);
-  userSchema.plugin(findOrCreate);
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
 module.exports = new mongoose.model('User', userSchema);

@@ -4,51 +4,57 @@
 <body>
 
   
-
-   <div class="container">
- 
-   <div class="row home-wrap">
-
-      <div class="col-sm-8 left-post">
+<div>
+      <div class="jumbotron text-left">
 
          <div class="div-abt">
             <p style="color:white;">
-             <span id="clock"></span>
-             
-            </p>  
-           </div>
-         <% posts.forEach(function(post) { %>
+               <span id="clock"></span>
+         
+            </p>
+         </div>
+
+   <form action="/search" method="post" class="searchForm" autocomplete="off">
+      <div class="search-bar">
+         <input type="text" name="search" id="search" placeholder="Search..">
+         <button type="submit" id="search_btn_main"><i class="fas fa-search fa-1x"></i></button>
+      </div>
+   </form>
+<br>
+         
+         <% homeData.forEach(function(x) { %>
             <div class="post-home flex">
             <div class="post-content">
 
                <div class="flex postowner">
                   <div>
-                     <img src="resources/favicon-32x32.png" alt="" srcset="">
+                     <% let photo; if(x.userdata.photo==undefined) photo="resources/favicon-32x32.png"; else photo=x.userdata.photo; %>
+                     <img class="user-dp" src=<%=photo%> alt="" srcset="">
                   </div>
                 
-                  <p><a href="<%=post.username%>"><%= post.username %> </a></p>
+                  <p><a href="/profile/<%=x.userdata.username%>"><%= x.userdata.username %> </a></p>
                 
                </div>
-               <h5><%= post.createat %></h5>
-               <%let pt = ""; if(post.title.length>51)  pt = post.title.substring(0,52)+" ..." ;
-               else pt = post.title %> 
-               <%let pc = ""; if(post.content.length>103)  pc = post.content.substring(0,104)+" ..." ;
-               else pc = post.content %>
-               <h2 class="title-link">  <a href="/posts/<%=post.title%>" ><%=pt%></a> </h2> 
+               <h5 id="createat"><%= x.post.createat %></h5>
+               <%let pt = ""; if(x.post.title.length>51)  pt = x.post.title.substring(0,52)+" ..." ;
+               else pt = x.post.title %> 
+               <%let pc = ""; if(x.post.textContent.length>190)  pc = x.post.textContent.substring(0,191)+" ..." ;
+               else pc = x.post.textContent %>
+               <h2 class="title-link">  <a href="/posts/<%=x.post.id%>" ><%=pt%></a> </h2> 
             
-               <p><%= pc %>  
+               <p id="content-home"><%= pc %>  
              
                </p> 
-               <p><%= post.date %> <%= post.time %> </p>
+               <p><%= x.post.date %> <%= x.post.time %> </p>
                
             </div>
             
         
             <div class="post-img">
-               <% let purl; if(post.titleimg=="undefine"){  purl="null"; %>
+               <% let purl; if(x.post.titleimg=="undefined"){  purl="null"; %>
                <img src="resources/favicon-32x32.png" srcset="">
                
-               <% } else{ purl=post.titleimg;  %>
+               <% } else{ purl=x.post.titleimg;  %>
                   <img src=<%=purl%> alt="" srcset="">
 
              <%  } %>
@@ -58,17 +64,43 @@
 
           <br>
             <% }) %> 
+
+<nav class="pagination-nav" aria-label="...">
+   <ul class="pagination">
+      <li class="page-item disabled">
+         <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item active">
+         <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+         <a class="page-link" href="#">Next</a>
+      </li>
+   </ul>
+</nav>
       </div>
      
 
       </div> 
     </div>
-   </div>
+
 
 
    <script>
 
+  
 
+   function extractTextFromHTML(htmlString) {
+      const temporaryElement = document.createElement('div');
+      temporaryElement.innerHTML = htmlString;
+      return temporaryElement.textContent || temporaryElement.innerText;
+   }
+
+   const htmlString = document.getElementById('content-home').innerHTML;
+   const textContent = extractTextFromHTML(htmlString);
+ 
 
 (function () {
 
@@ -83,6 +115,25 @@ setInterval(function () {
 }, 1000);
 
 }());
+
+  document.addEventListener("DOMContentLoaded", function () {
+      // Get references to the link and div elements
+      var link = document.getElementById("searchButton");
+      var div = document.getElementById("home-search");
+
+      // Add a click event listener to the link
+      link.addEventListener("click", function (event) {
+         event.preventDefault(); // Prevent the link from navigating to a new page
+
+         // Toggle the CSS display property of the div
+         if (div.style.display === "none") {
+            div.style.display = "block";
+         } else {
+            div.style.display = "none";
+         }
+      });
+   });
+
    </script>
     <%- include partials/footer -%>
     

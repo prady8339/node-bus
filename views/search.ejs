@@ -5,7 +5,7 @@
    
    
 
-<div class="jumbotron text-center">
+<div class="jumbotron center-div">
  
   <div class="container">
     <i class="fas fa-search fa-6x"></i>
@@ -19,15 +19,49 @@
 
 
       <form action="/search" method="post" class="searchForm" autocomplete="off">
-        
-            <input type="text" name="search" id="search" placeholder="Search.." >
-            <button type="submit"><i class="fas fa-search fa-1x"></i></button>
+            <div class="search-bar">
+<input type="text" name="search" id="search" onkeyup="getSearchSuggestions()" placeholder="Search..">
 
-         
+<button type="submit" id="search_btn_main"><i class="fas fa-search fa-1x"></i></button> 
+            </div>
       </form>
-    
+  
     
   </div>
+  <div id="searchSuggestions"></div>
+ </div>
 </div>
+<script>
+  // function getSearchSuggestions() {
+  //     const searchInput = document.getElementById('search').value;
+  //     const searchSuggestionsDiv = document.getElementById('searchSuggestions');
+
+  //     // Clear previous suggestions
+  //     searchSuggestionsDiv.innerHTML = '';
+
+  //     // Send an AJAX request to the server
+  //     if (searchInput.length > 0) {
+  //       fetch('/search/suggestions', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ search: searchInput }),
+  //       })
+  //         .then(response => response.json())
+  //         .then(data => {
+  //           // Display the search suggestions
+  //           data.forEach(suggestion => {
+  //             const suggestionElement = document.createElement('p');
+  //             suggestionElement.textContent = suggestion;
+  //             searchSuggestionsDiv.appendChild(suggestionElement);
+  //           });
+  //         })
+  //         .catch(error => console.error(error));
+  //     }
+  //   }
+
+
+</script>
 
 <%- include('partials/footer') %>
