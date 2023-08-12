@@ -27,7 +27,7 @@ module.exports = function (app, User, chatModel) {
         const chatId = req.params.chatId;
         const chat = await chatModel.findById(chatId); // Find chat by ID
         console.log(chat);
-        res.render('chat.ejs', {
+        res.render('chatIns.ejs', {
           username: req.user.username,
           chat: chat.chats,
           chatrooms: []

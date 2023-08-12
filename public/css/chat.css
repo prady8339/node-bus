@@ -96,12 +96,25 @@
 }
 
 .chat-section {
-    background-image: url('../resources/chatbbg.jpeg');
-    /* background-color: rgba(255, 251, 251, 0.75) ; */
+    /* background-image: url('../resources/chatbbg.jpeg'); */
+    background-color: rgba(255, 251, 251, 0.75) ;
+        border-right: #f6f6f6 2px solid;
+            border-left: #f6f6f6 2px solid;
+            border-top: #f6f6f6 2px solid;
+            border-radius: 20px 20px 0 0;
     padding: 25px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     font-size: medium;
     overflow-y: scroll;
 
     height: 80vh;
+}
+.send-text{
+    
+        background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            border: 1px solid #ccc;
+            border-radius: 0 0 20px 20px;
 }
