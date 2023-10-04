@@ -1,14 +1,14 @@
-const _ = require('lodash');
+const _ = require("lodash");
 
 module.exports = function (app, Post, User) {
-  app.get('/posts/:userId', async function (req, res) {
+  app.get("/posts/:userId", async function (req, res) {
     try {
       let requestedId = req.params.userId;
       const posts = await Post.find().exec();
       for (const post of posts) {
         const storedId = post.id;
         if (storedId === requestedId) {
-          res.render('post.ejs', {
+          res.render("post.ejs", {
             id: post._id,
             title: post.title,
             content: post.content,
@@ -24,11 +24,11 @@ module.exports = function (app, Post, User) {
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 
-  app.post('/addLike', async function (req, res) {
+  app.post("/addLike", async function (req, res) {
     try {
       const postid = req.body.likePost;
 
@@ -39,27 +39,27 @@ module.exports = function (app, Post, User) {
         const post = await Post.findById(postid).exec();
         if (post) {
           if (post.likes.includes(userId)) {
-            console.log('already liked');
+            //('already liked');
           } else {
             post.likes.push(userId);
             await post.save();
           }
         } else {
-          console.log('Post not found');
-          res.status(404).send('Post not found');
+          //console.log('Post not found');
+          res.status(404).send("Post not found");
           return;
         }
-        res.redirect('/posts/' + postid);
+        res.redirect("/posts/" + postid);
       } else {
-        res.redirect('/login');
+        res.redirect("/login");
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 
-  app.post('/disLike', async function (req, res) {
+  app.post("/disLike", async function (req, res) {
     try {
       const postid = req.body.likePost;
 
@@ -74,21 +74,21 @@ module.exports = function (app, Post, User) {
             await post.save();
           }
         } else {
-          console.log('Post not found');
-          res.status(404).send('Post not found');
+          console.log("Post not found");
+          res.status(404).send("Post not found");
           return;
         }
-        res.redirect('/posts/' + postid);
+        res.redirect("/posts/" + postid);
       } else {
-        res.redirect('/login');
+        res.redirect("/login");
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 
-  app.post('/comment', async function (req, res) {
+  app.post("/comment", async function (req, res) {
     try {
       const postid = req.body.commentId;
       const comment = req.body.postComment;
@@ -104,26 +104,26 @@ module.exports = function (app, Post, User) {
             username: user.username,
             userComment: comment,
             $timeStamp: new Date(),
-            followUp: []
+            followUp: [],
           };
           post.comments.push(newComment);
           await post.save();
         } else {
-          console.log('Post not found');
-          res.status(404).send('Post not found');
+          console.log("Post not found");
+          res.status(404).send("Post not found");
           return;
         }
-        res.redirect('/posts/' + postid);
+        res.redirect("/posts/" + postid);
       } else {
-        res.redirect('/login');
+        res.redirect("/login");
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 
-  app.post('/followUp', async function (req, res) {
+  app.post("/followUp", async function (req, res) {
     try {
       const postId = req.body.postId;
       const commentId = req.body.commentId;
@@ -139,29 +139,31 @@ module.exports = function (app, Post, User) {
             UserId: userId,
             username: user.username,
             userComment: followUpComment,
-            $timeStamp: new Date()
+            $timeStamp: new Date(),
           };
-          const comment = post.comments.find(c => c._id.toString() === commentId);
+          const comment = post.comments.find(
+            (c) => c._id.toString() === commentId
+          );
           if (comment) {
             comment.followUp.push(newFollowUp);
             await post.save();
           }
         } else {
-          console.log('Post not found');
-          res.status(404).send('Post not found');
+          console.log("Post not found");
+          res.status(404).send("Post not found");
           return;
         }
-        res.redirect('/posts/' + postId);
+        res.redirect("/posts/" + postId);
       } else {
-        res.redirect('/login');
+        res.redirect("/login");
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 
-  app.post('/share', async function (req, res) {
+  app.post("/share", async function (req, res) {
     try {
       const postId = req.body.likePost;
       if (req.isAuthenticated()) {
@@ -170,17 +172,17 @@ module.exports = function (app, Post, User) {
         if (post) {
           post.shares.push(userId);
           await post.save();
-          res.redirect('/posts/' + postId);
+          res.redirect("/posts/" + postId);
         } else {
-          console.log('Post not found');
-          res.status(404).send('Post not found');
+          console.log("Post not found");
+          res.status(404).send("Post not found");
         }
       } else {
-        res.redirect('/login');
+        res.redirect("/login");
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("Internal Server Error");
     }
   });
 };
